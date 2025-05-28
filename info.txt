@@ -1,0 +1,201 @@
+
+Oui, je connais le service CodeExecutionService (CES) proposé par TPM28. Il permet d'exécuter du code dans un environnement sécurisé et isolé, avec une prise en charge de Python et Bash. Ce service est particulièrement adapté pour les bots Discord souhaitant offrir des fonctionnalités d'exécution de code en ligne.
+
+### Fonctionnalités principales
+
+* **Exécution de code non interactive** : Permet d'exécuter du code Python ou Bash dans un conteneur temporaire, avec la possibilité d'envoyer et de recevoir des fichiers en pièces jointes.
+
+* **Exécution de code interactive** : Permet d'exécuter du code de manière interactive via WebSocket, idéal pour des interactions en temps réel avec les utilisateurs.
+
+* **Notebooks persistants** : Offre un environnement de développement interactif avec stockage persistant, permettant de créer, exécuter, mettre en pause et supprimer des notebooks.
+
+### Exemple d'utilisation
+
+Voici un exemple d'appel API pour exécuter du code Python de manière non interactive :
+
+```bash
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -d '{"lang": "python", "code": "print(\"Hello, world\")"}' \
+  https://tpm28.com/ces/run
+```
+
+
+
+Et pour une exécution interactive :([manuals.konicaminolta.eu][1])
+
+```bash
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -d '{"lang": "python", "code": "name = input(\"What is your name?\")\nage = input(\"How old are you?\")\nprint(f\"Hello {name}, you are {age} years old.\")"}' \
+  https://tpm28.com/ces/run_interactive
+```
+
+
+
+Après avoir lancé l'exécution interactive, vous pouvez vous connecter au WebSocket à l'adresse `wss://tpm28.com/ces/ws` et interagir avec le code en temps réel.
+
+### Intégration avec un bot Discord
+
+Pour intégrer CES à un bot Discord, vous pouvez utiliser la bibliothèque `discord.py` en Python. Voici un exemple de commande qui exécute du code Python fourni par l'utilisateur :
+
+```python
+import discord
+import requests
+import json
+
+client = discord.Client()
+
+@client.event
+async def on_ready():
+    print(f'Logged in as {client.user}')
+
+@client.event
+async def on_message(message):
+    if message.content.startswith('!run'):
+        code = message.content[len('!run '):]
+        response = requests.post(
+            'https://tpm28.com/ces/run',
+            headers={'Authorization': 'Bearer YOUR_TOKEN'},
+            json={'lang': 'python', 'code': code}
+        )
+        result = response.json()
+        await message.channel.send(f'Output: {result["result"]}')
+
+client.run('YOUR_DISCORD_TOKEN')
+```
+
+
+
+Assurez-vous de remplacer `YOUR_TOKEN` par votre token d'API CES et `YOUR_DISCORD_TOKEN` par le token de votre bot Discord.
+
+Pour plus de détails, vous pouvez consulter la documentation officielle de CES : .([manuals.konicaminolta.eu][1])
+
+N'hésitez pas à me demander si vous avez besoin d'aide supplémentaire pour l'intégration ou la personnalisation de votre bot !
+
+[1]: https://manuals.konicaminolta.eu/bizhub-C361i-C301i-C251i/FR/contents/AF_06_01.html?utm_source=chatgpt.com "Fonction avancée | TPM"
+
+
+Oui, le service **CodeExecutionService (CES)** de TPM28 impose certaines limitations afin d'assurer une utilisation équitable et sécurisée de ses ressources.
+
+### ⚠️ Limites connues du service CES
+
+Bien que la documentation officielle de CES ne fournisse pas de détails exhaustifs sur les limitations, il est courant que des services d'exécution de code en ligne appliquent des restrictions telles que :
+
+* **Limites de fréquence des requêtes** : Pour éviter les abus, le service peut restreindre le nombre de requêtes qu'un utilisateur peut effectuer dans une période donnée.
+
+* **Limites de durée d'exécution** : Les scripts peuvent être exécutés dans un délai limité, au-delà duquel ils sont automatiquement arrêtés.
+
+* **Limites de mémoire et de ressources CPU** : Pour garantir la stabilité du service, des quotas de ressources sont souvent imposés.
+
+* **Limites de taille des fichiers joints** : La taille des fichiers envoyés ou reçus peut être limitée.
+
+* **Limites de taille des scripts** : La longueur ou la complexité des scripts soumis peut être restreinte.
+
+### ✅ Bonnes pratiques pour éviter les dépassements de limites
+
+* **Gestion des erreurs** : Implémentez des mécanismes pour détecter et gérer les erreurs liées aux dépassements de limites, comme les codes d'erreur HTTP 429 (trop de requêtes) ou d'autres codes spécifiques.
+
+* **Retraits exponentiels** : En cas de dépassement de limite, attendez un certain temps avant de réessayer, en augmentant progressivement l'intervalle entre les tentatives.
+
+* **Optimisation des scripts** : Assurez-vous que les scripts sont optimisés pour minimiser l'utilisation des ressources et respecter les limites imposées.
+
+* **Surveillance de l'utilisation** : Suivez régulièrement l'utilisation de l'API pour détecter toute tendance à l'approche des limites.
+
+### 📞 Contactez le support de CES
+
+Pour obtenir des informations précises sur les limitations actuelles et les meilleures pratiques pour les contourner, il est recommandé de contacter directement le support de TPM28 via leur [formulaire de contact](https://tpm28.com/contact).
+
+Souhaitez-vous que je vous aide à formuler une demande de renseignements à leur support ?
+
+Create Notebook
+Creates a new notebook and starts a container for it. Returns the notebook ID.
+
+curl -X GET \
+    -H "Authorization: Bearer ces-ErhNeJhlSRAqybRpR1b560gj3IVwMl7jfu0EIfqUU" \
+    https://tpm28.com/ces/nb_create
+
+Example response
+
+{
+    "id": "nb-abcdefghij"
+}
+
+POST /ces/nb_run
+Run Code in Notebook
+Executes the provided code in the specified notebook container. Returns the output.
+
+curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer ces-ErhNeJhlSRAqybRpR1b560gj3IVwMl7jfu0EIfqUU" \
+    -d "{\"ID\": \"nb-abcdefghij\", \"lang\": \"python\", \"code\": \"print('Hello, world')\"}" \
+    https://tpm28.com/ces/nb_run
+
+Example response
+
+{
+    "result": "Hello, World\n",
+    "executionTime": 0.100901
+}
+
+POST /ces/nb_delete
+Delete Notebook
+Stops and deletes the notebook container along with associated files.
+
+curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer ces-ErhNeJhlSRAqybRpR1b560gj3IVwMl7jfu0EIfqUU" \
+    -d "{\"ID\": \"nb-abcdefghij\"}" \
+    https://tpm28.com/ces/nb_delete
+
+Example response
+
+{
+    "result": "Notebook deleted"
+}
+
+POST /ces/nb_pause
+Pause Notebook
+Pauses the notebook container.
+
+curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer ces-ErhNeJhlSRAqybRpR1b560gj3IVwMl7jfu0EIfqUU" \
+    -d "{\"ID\": \"nb-abcdefghij\"}" \
+    https://tpm28.com/ces/nb_pause
+
+Example response
+
+{
+    "result": "Notebook paused"
+}
+
+POST /ces/nb_resume
+Resume Notebook
+Resumes the notebook container.
+
+curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer ces-ErhNeJhlSRAqybRpR1b560gj3IVwMl7jfu0EIfqUU" \
+    -d "{\"ID\": \"nb-abcdefghij\"}" \
+    https://tpm28.com/ces/nb_resume
+
+Example response
+
+{
+    "result": "Notebook resumed"
+}
+
+
+
+Rate Limits
+Endpoint 	Requests/Minute 	Requests/Hour 	Requests/Day
+run 	15 	100 	500
+run_interactive 	4 	50 	200
+nb_create 	2 	20 	50
+nb_delete 	99999 	99999 	99999
+nb_run 	10 	100 	500
+nb_pause 	99999 	99999 	99999
+nb_resume 	5 	50 	200
