@@ -1,0 +1,573 @@
+[INFO] 2025-05-28 22:39:12 - [INFO] Initialisation du bot...
+[INFO] 2025-05-28 22:39:12 - [INFO] Configuration des clients Discord...
+[WARNING] 2025-05-28 22:39:12 - PyNaCl is not installed, voice will NOT be supported
+[INFO] 2025-05-28 22:39:12 - [INFO] Clients Discord configurés avec succès.
+[INFO] 2025-05-28 22:39:12 - [INFO] Connexion aux API...
+[INFO] 2025-05-28 22:39:12 - [INFO] Démarrage du bot...
+[INFO] 2025-05-28 22:39:12 - logging in using static token
+[INFO] 2025-05-28 22:39:14 - Shard ID None has connected to Gateway (Session ID: d4ebb4a0f781eb01db84693061df52b8).
+[INFO] 2025-05-28 22:39:16 - [INFO] Démarrage des tâches périodiques...
+[INFO] 2025-05-28 22:39:16 - [INFO] Démarrage de la tache de synchronisation...
+[INFO] 2025-05-28 22:39:16 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:39:16 - [INFO] 4 commandes synchronisées avec succès !
+[INFO] 2025-05-28 22:39:17 - [INFO] 1 serveurs connectés !
+[INFO] 2025-05-28 22:39:17 - [INFO] Le bot est connecté en tant que PyLauncher (ID: 1377286510944059523) !
+[INFO] 2025-05-28 22:39:22 - [START] Le bot est prêt et en ligne !
+[INFO] 2025-05-28 22:39:22 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:39:22 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:39:25 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:39:28 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:39:31 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:39:34 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:39:37 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:39:40 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:39:43 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:39:46 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:39:49 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:39:52 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:39:55 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:39:58 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:40:01 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:40:04 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:40:07 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:40:10 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:40:13 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:40:16 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:40:19 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:40:22 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:40:25 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:40:28 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:40:31 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:40:34 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:40:37 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:40:40 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:40:43 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:40:46 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:40:49 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:40:52 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:40:55 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:40:58 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:41:01 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:41:04 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:41:07 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:41:10 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:41:13 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:41:16 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:41:19 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:41:22 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:41:25 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:41:28 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:41:31 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:41:34 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:41:37 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:41:40 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:41:43 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:41:46 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:41:49 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:41:52 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:41:55 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:41:58 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:42:01 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:42:04 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:42:07 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:42:10 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:42:13 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:42:16 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:42:19 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:42:22 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:42:25 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:42:28 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:42:31 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:42:34 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:42:37 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:42:40 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:42:43 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:42:46 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:42:49 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:42:52 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:42:55 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:42:58 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:43:01 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:43:04 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:43:07 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:43:10 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:43:13 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:43:16 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:43:19 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:43:22 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:43:25 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:43:28 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:43:31 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:43:34 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:43:37 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:43:40 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:43:43 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:43:46 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:43:49 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:43:52 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:43:55 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:43:58 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:44:01 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:44:04 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:44:07 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:44:10 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:44:13 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:44:16 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:44:19 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:44:22 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:44:25 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:44:28 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:44:31 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:44:34 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:44:37 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:44:40 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:44:43 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:44:46 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:44:49 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:44:52 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:44:55 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:44:58 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:45:01 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:45:04 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:45:07 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:45:10 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:45:13 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:45:16 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:45:19 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:45:22 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:45:25 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:45:28 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:45:31 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:45:34 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:45:37 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:45:40 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:45:43 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:45:46 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:45:49 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:45:52 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:45:55 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:45:58 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:46:01 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:46:04 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:46:07 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:46:10 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:46:13 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:46:16 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:46:19 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:46:22 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:46:25 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:46:28 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:46:31 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:46:34 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:46:37 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:46:40 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:46:43 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:46:46 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:46:49 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:46:52 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:46:55 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:46:58 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:47:01 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:47:04 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:47:07 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:47:10 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:47:13 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:47:16 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:47:19 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:47:22 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:47:25 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:47:28 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:47:31 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:47:34 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:47:37 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:47:40 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:47:43 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:47:46 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:47:49 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:47:52 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:47:55 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:47:58 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:48:01 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:48:04 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:48:07 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:48:10 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:48:13 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:48:16 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:48:19 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:48:22 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:48:25 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:48:28 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:48:31 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:48:34 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:48:37 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:48:40 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:48:43 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:48:46 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:48:49 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:48:52 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:48:55 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:48:58 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:49:01 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:49:04 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:49:07 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:49:10 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:49:13 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:49:16 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:49:19 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:49:22 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:49:25 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:49:28 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:49:31 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:49:34 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:49:37 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:49:40 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:49:43 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:49:46 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:49:49 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:49:52 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:49:55 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:49:58 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:50:01 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:50:04 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:50:07 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:50:10 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:50:13 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:50:16 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:50:19 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:50:22 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:50:25 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:50:28 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:50:31 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:50:34 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:50:37 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:50:40 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:50:43 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:50:46 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:50:49 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:50:52 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:50:55 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:50:58 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:51:01 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:51:04 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:51:07 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:51:10 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:51:13 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:51:16 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:51:19 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:51:22 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:51:25 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:51:28 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:51:31 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:51:34 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:51:37 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:51:40 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:51:43 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:51:46 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:51:49 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:51:52 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:51:55 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:51:58 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:52:01 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:52:04 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:52:07 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:52:10 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:52:13 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:52:16 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:52:28 - [INFO] Initialisation du bot...
+[INFO] 2025-05-28 22:52:28 - [INFO] Configuration des clients Discord...
+[WARNING] 2025-05-28 22:52:28 - PyNaCl is not installed, voice will NOT be supported
+[INFO] 2025-05-28 22:52:28 - [INFO] Clients Discord configurés avec succès.
+[INFO] 2025-05-28 22:52:28 - [INFO] Connexion aux API...
+[INFO] 2025-05-28 22:52:28 - [INFO] Démarrage du bot...
+[INFO] 2025-05-28 22:52:28 - logging in using static token
+[INFO] 2025-05-28 22:52:30 - Shard ID None has connected to Gateway (Session ID: 3919ef4424c2c25266536aaeeff78738).
+[INFO] 2025-05-28 22:52:32 - [INFO] Démarrage des tâches périodiques...
+[INFO] 2025-05-28 22:52:32 - [INFO] Démarrage de la tache de synchronisation...
+[INFO] 2025-05-28 22:52:32 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:52:32 - [INFO] 4 commandes synchronisées avec succès !
+[INFO] 2025-05-28 22:52:32 - [INFO] 1 serveurs connectés !
+[INFO] 2025-05-28 22:52:32 - [INFO] Le bot est connecté en tant que PyLauncher (ID: 1377286510944059523) !
+[INFO] 2025-05-28 22:52:37 - [START] Le bot est prêt et en ligne !
+[INFO] 2025-05-28 22:52:37 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:52:38 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:52:41 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:52:44 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:52:47 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:52:50 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:52:53 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:52:56 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:52:59 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:53:02 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:53:05 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:53:08 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:53:11 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:53:14 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:53:17 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:53:20 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:53:23 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:53:26 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:53:29 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:53:32 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:53:35 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:53:38 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:53:41 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:53:44 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:53:47 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:53:50 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:53:53 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:53:56 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:53:59 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:54:02 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:54:05 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:54:08 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:54:11 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:54:14 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:54:17 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:54:20 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:54:23 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:54:26 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:54:29 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:54:32 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:54:35 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:54:38 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:54:41 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:54:44 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:54:47 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:54:50 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:54:53 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:54:56 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:54:59 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:55:02 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:55:05 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:55:08 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:55:11 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:55:14 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:55:17 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:55:20 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:55:23 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:55:26 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:55:29 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:55:32 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:55:35 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:55:38 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:55:41 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:55:44 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:55:47 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:55:50 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:55:53 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:55:56 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:55:59 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:56:02 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:56:05 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:56:12 - [INFO] Initialisation du bot...
+[INFO] 2025-05-28 22:56:12 - [INFO] Configuration des clients Discord...
+[WARNING] 2025-05-28 22:56:12 - PyNaCl is not installed, voice will NOT be supported
+[INFO] 2025-05-28 22:56:12 - [INFO] Clients Discord configurés avec succès.
+[INFO] 2025-05-28 22:56:12 - [INFO] Connexion aux API...
+[INFO] 2025-05-28 22:56:12 - [INFO] Démarrage du bot...
+[INFO] 2025-05-28 22:56:12 - logging in using static token
+[INFO] 2025-05-28 22:56:13 - Shard ID None has connected to Gateway (Session ID: de7e8cecd046246026ba34d2fa06a0e6).
+[INFO] 2025-05-28 22:56:15 - [INFO] Démarrage des tâches périodiques...
+[INFO] 2025-05-28 22:56:15 - [INFO] Démarrage de la tache de synchronisation...
+[INFO] 2025-05-28 22:56:15 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:56:16 - [INFO] 4 commandes synchronisées avec succès !
+[INFO] 2025-05-28 22:56:16 - [INFO] 1 serveurs connectés !
+[INFO] 2025-05-28 22:56:16 - [INFO] Le bot est connecté en tant que PyLauncher (ID: 1377286510944059523) !
+[INFO] 2025-05-28 22:56:21 - [START] Le bot est prêt et en ligne !
+[INFO] 2025-05-28 22:56:21 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:56:21 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:56:24 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:56:27 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:56:30 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:56:33 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:56:36 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:56:39 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:56:42 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:56:45 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:56:48 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:56:51 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:56:54 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:56:57 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:57:00 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:57:03 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:57:06 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:57:09 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:57:12 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:57:15 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:57:18 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:57:21 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:57:24 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:57:27 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:57:30 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:57:33 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:57:36 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:57:39 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:57:42 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:57:45 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:57:48 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:57:51 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:57:54 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:57:57 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:58:00 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:58:03 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:58:06 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:58:09 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:58:12 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:58:15 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:58:18 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:58:21 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:58:24 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:58:27 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:58:30 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:58:33 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:58:36 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:58:39 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:58:42 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:58:45 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:58:48 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:58:51 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:58:54 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:58:57 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:59:00 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:59:03 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:59:06 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:59:09 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:59:12 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:59:15 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:59:18 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:59:21 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:59:24 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:59:27 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:59:30 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:59:33 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:59:36 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:59:39 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:59:42 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 22:59:45 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 22:59:48 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 22:59:51 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 22:59:54 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 22:59:57 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:00:00 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:00:03 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:00:06 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:00:09 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:00:12 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:00:15 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:00:18 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:00:21 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:00:24 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:00:27 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:00:30 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:00:33 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:00:36 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:00:39 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:00:42 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:00:45 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:00:48 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:00:51 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:00:54 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:00:57 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:01:00 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:01:03 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:01:06 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:01:09 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:01:12 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:01:15 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:01:18 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:01:21 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:01:24 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:01:27 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:01:30 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:01:33 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:01:36 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:01:39 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:01:42 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:01:45 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:01:48 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:01:51 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:01:54 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:01:57 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:02:00 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:02:03 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:02:06 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:02:09 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:02:12 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:02:15 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:02:18 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:02:21 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:02:24 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:02:27 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:02:30 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:02:33 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:02:36 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:02:39 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:02:42 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:02:45 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:02:48 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:02:51 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:02:54 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:02:57 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:03:00 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:03:03 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:03:06 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:03:09 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:03:12 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:03:15 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:03:18 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:03:21 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:03:24 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:03:27 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:03:30 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:03:33 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:03:36 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:03:39 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:03:42 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:03:45 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:03:48 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:03:51 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:03:54 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:03:57 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:04:00 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:04:03 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:04:06 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:04:09 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:04:12 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:04:15 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:04:18 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:04:21 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:04:24 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:04:27 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:04:30 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:04:33 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:04:36 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:04:39 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:04:42 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:04:45 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:04:48 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:04:51 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:04:54 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:04:57 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:05:00 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:05:03 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:05:06 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:05:09 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:05:12 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:05:15 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:05:18 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:05:21 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:05:24 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:05:27 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:05:30 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:05:33 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:05:36 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:05:39 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:05:42 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:05:45 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:05:48 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:05:51 - [INFO] Statut changé : En ligne
+[INFO] 2025-05-28 23:05:54 - [INFO] Statut changé : En développement
+[INFO] 2025-05-28 23:05:57 - [INFO] Statut changé : En attente de mise à jour
+[INFO] 2025-05-28 23:06:00 - [INFO] Statut changé : En maintenance
+[INFO] 2025-05-28 23:06:03 - [INFO] Statut changé : En pause
+[INFO] 2025-05-28 23:06:06 - [INFO] Statut changé : En ligne

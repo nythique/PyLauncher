@@ -249,7 +249,7 @@ def register_commands(bot_instance):
         if isinstance(error, commands.CommandNotFound):
             return
     
-    @bot.tree.command(name="empty", description="Vider les fichiers de logs.")
+    @bot.tree.command(name="empty", description="DEV|Vider les fichiers de logs.")
     async def empty(interaction: discord.Interaction):
         admin_user = []
         if not interaction.user.id not in admin_user:
@@ -288,10 +288,9 @@ def register_commands(bot_instance):
                 print(Fore.GREEN + f"[INFO] Tous les fichiers de logs ont été vidés avec succès." + Style.RESET_ALL)
             except Exception as e:
                 logging.error(f"[ERROR] Une erreur s'est produite lors de l'envoi de l'imformation à {interaction.user.name} : {e}")
-                print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'envoi de l'imformation à {interaction.user.name}" + Style.RESET_ALL)
-        
+                print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'envoi de l'imformation à {interaction.user.name}" + Style.RESET_ALL)      
 
-    @bot.tree.command(name="aide", description="Afficher l'aide du bot.")
+    @bot.tree.command(name="help", description="Afficher l'aide du bot.")
     async def help(interaction: discord.Interaction):
         try:
             bot_user = bot.user
@@ -327,6 +326,59 @@ def register_commands(bot_instance):
             print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'envoi de l'aide : {e}" + Style.RESET_ALL)
             logging.error(f"[ERROR] Une erreur s'est produite lors de l'envoi de l'aide : {e}")
 
+    @bot.tree.command(name="latence", description="Affiche la latence du bot et de Discord.")
+    async def latence(interaction: discord.Interaction):
+        """Affiche la latence du bot et de Discord dans un embed."""
+        bot_latency = round(bot.latency * 1000)
+        if bot_latency < 150:
+            embed = discord.Embed(
+                title=f"🏓 Pong ! {bot_latency} ms",
+                color=discord.Color.green()
+            )
+        else:
+            embed = discord.Embed(
+                title=f"🏓 Pong ! {bot_latency} ms",
+                color=discord.Color.orange()
+            )
+        embed.set_footer(text="Lunaris IA • Nexium Portal")
+        await interaction.response.send_message(embed=embed, ephemeral=True)
+        print(Fore.GREEN + f"[INFO] Ping demandé par {interaction.user.name}" + Style.RESET_ALL)
+        logging.info(f"[INFO] Ping demandé par {interaction.user.name}")
+    
+        # Ajoute ceci dans ton main.py ou un fichier de commandes
+    
+    @bot.tree.command(name="report", description="Envoyer un rapport ou signaler un problème à l'équipe")
+    @app_commands.describe(message="Décris ton problème ou ta suggestion")
+    async def report(interaction: discord.Interaction, message: str):
+        """Permet à un utilisateur d'envoyer un rapport à l'admin ou dans un salon dédié."""
+        await interaction.response.send_message(
+            "Merci pour ton rapport ! L'équipe a bien reçu ta demande.", ephemeral=True
+        )
+    
+        REPORT_CHANNEL_ID = 1360403767274508355 
+    
+        report_embed = discord.Embed(
+            title="",
+            description=f"```{message}```",
+            color=discord.Color.orange()
+        )
+        report_embed.set_author(name=interaction.user.display_name, icon_url=interaction.user.avatar.url)
+        report_embed.set_footer(
+            text=f"Identifiant de {interaction.user.display_name}: {interaction.user.id})"
+        )
+        report_embed.timestamp = datetime.now()
+    
+        # Envoie dans le salon de rapports
+        channel = bot.get_channel(REPORT_CHANNEL_ID)
+        if channel:
+            await channel.send(embed=report_embed)
+        else:
+            # Si le salon n'existe pas, envoie en DM à l'admin (remplace l'ID)
+            ADMIN_ID = 123456789012345678  # <-- À remplacer par ton ID Discord
+            admin = await bot.fetch_user(ADMIN_ID)
+            await admin.send(embed=report_embed)
+
+
     @bot.command(name="errors")
     async def errors(ctx, lines: int = 10):
         """Affiche les dernières lignes du fichier de logs d'erreur."""
@@ -356,39 +408,3 @@ def register_commands(bot_instance):
             await ctx.send(f"Erreur lors de la lecture des logs.")
             print(Fore.RED + f"[ERROR] Erreur lors de la lecture des logs" + Style.RESET_ALL)
             logging.error(f"[ERROR] Erreur lors de la lecture des logs : {e}")
-
-
-    @bot.tree.command(name="latence", description="Affiche la latence du bot et de Discord.")
-    async def latence(interaction: discord.Interaction):
-        """Affiche la latence du bot et de Discord dans un embed."""
-        bot_latency = round(bot.latency * 1000)
-        if bot_latency < 150:
-            embed = discord.Embed(
-                title=f"🏓 Pong ! {bot_latency} ms",
-                color=discord.Color.green()
-            )
-        else:
-            embed = discord.Embed(
-                title=f"🏓 Pong ! {bot_latency} ms",
-                color=discord.Color.orange()
-            )
-        embed.set_footer(text="Lunaris IA • Nexium Portal")
-        await interaction.response.send_message(embed=embed, ephemeral=True)
-        print(Fore.GREEN + f"[INFO] Ping demandé par {interaction.user.name}" + Style.RESET_ALL)
-        logging.info(f"[INFO] Ping demandé par {interaction.user.name}")
-    
-        # Ajoute ceci dans ton main.py ou un fichier de commandes
-    
-    @bot.tree.command(name="notebook", description="Crée un notebook CES et exécute du code Python.")
-    @app_commands.describe(code="Code Python à exécuter dans le notebook")
-    async def notebook(interaction: discord.Interaction, code: str):
-        await interaction.response.defer(ephemeral=True)
-        nb = await create_notebook()
-        nb_id = nb.get("id")
-        if not nb_id:
-            await interaction.followup.send("Erreur lors de la création du notebook.")
-            return
-        result = await run_code_in_notebook(nb_id, code)
-        output = result.get("result", "Aucun résultat.")
-        await interaction.followup.send(f"**Résultat :**\n```python\n{output}\n```")
-        delete_notebook(nb_id)
