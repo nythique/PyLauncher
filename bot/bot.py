@@ -29,6 +29,26 @@ try:
     logging.info("[INFO] Initialisation du bot...")
     print(Fore.GREEN + "[INFO] Initialisation du bot..." + Style.RESET_ALL)
     bot = create_bot()
+    try:
+        logging.info("[INFO] Chargement des cogs...")
+        print(Fore.GREEN + "[INFO] Chargement des cogs..." + Style.RESET_ALL)
+        import asyncio
+        async def load_cogs():
+            await bot.load_extension("commands.admin.empty")
+            await bot.load_extension("commands.admin.errors")
+            await bot.load_extension("commands.public.help")
+            await bot.load_extension("commands.public.ping")
+            await bot.load_extension("commands.public.report")
+            await bot.load_extension("commands.public.explain")
+            await bot.load_extension("commands.public.analyze")
+            await bot.load_extension("commands.public.challenge")
+            await bot.load_extension("commands.public.history")
+            await bot.load_extension("commands.public.visualize")
+            await bot.load_extension("commands.public.config")
+        asyncio.run(load_cogs())
+    except Exception as e:
+        print(Fore.RED + f"[ERROR] Erreur lors du chargement des cogs" + Style.RESET_ALL)
+        logging.error(f"[ERROR] Erreur lors du chargement des cogs : {e}")
     register_commands(bot)
 except Exception as e:
     logging.error(f"[ERROR] Erreur lors de l'initialisation du bot : {e}")

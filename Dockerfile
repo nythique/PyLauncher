@@ -1,12 +1,15 @@
-# Utilise une image légère de python
 FROM python:3.11-slim
-# Dossier e travail
+
 WORKDIR /app/PyLauncher
-# Copy des dependances
+
+# Copie des dépendances
 COPY upload.txt .
-# Installation des dependances
+
+# Installation des dépendances (pour le bot ET pour l'exécution utilisateur)
 RUN pip install --no-cache-dir -r upload.txt
-# Copy des tout les autres fichier et dossier du projet
+
+# Copie du reste du projet
 COPY . .
-# Execution du fichier primcipal
+
+# Lancement du bot
 CMD ["python", "run.py"]

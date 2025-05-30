@@ -6,7 +6,7 @@ from discord.ext import commands, tasks
 from discord import app_commands
 from io import BytesIO
 from colorama import Fore, Style
-import discord, time, os,logging, re
+import discord, time, os,logging, re, asyncio
 
 bot = None
 MAX_DISCORD_MSG_LEN = 1800 # Limite de sécurité pour Discord.
@@ -147,7 +147,6 @@ def register_commands(bot_instance):
                 file_content = f"Résultat {lang} (exécuté en {elapsed:.2f} secondes)\n\n{output}"
                 file = discord.File(BytesIO(file_content.encode("utf-8")), filename="resultat.txt")
                 embed = discord.Embed(
-                    description="Le résultat est trop long pour être affiché ici. Voici le fichier complet :",
                     color=discord.Color.gold()
                 )
                 embed.set_footer(
@@ -222,7 +221,6 @@ def register_commands(bot_instance):
                 file_content = f"Résultat {lang} (exécuté en {elapsed:.2f} secondes)\n\n{output}"
                 file = discord.File(BytesIO(file_content.encode("utf-8")), filename="resultat.txt")
                 embed = discord.Embed(
-                    description="Le résultat est trop long pour être affiché ici. Voici le fichier complet :",
                     color=discord.Color.gold()
                 )
                 embed.set_footer(
@@ -247,187 +245,8 @@ def register_commands(bot_instance):
     async def on_command_error(ctx, error):
         """Gestion des erreurs de commande préfix"""
         if isinstance(error, commands.CommandNotFound):
-            return
+            return  
+
+        
     
-    @bot.tree.command(name="empty", description="DEVS | Vider les fichiers de logs")
-    async def empty(interaction: discord.Interaction):
-        admin_user = []
-        if not interaction.user.id not in admin_user:
-            await interaction.response.send_message("Attention ! Vous n'avez pas la permission d'utiliser cette commande.", ephemeral=True)
-            print(Fore.BLUE + f"[SECURITY] Utilisateur non autorisé a tenté de vider les logs : {interaction.user.name}" + Style.RESET_ALL)
-            logging.warning(f"[SECURITY] Utilisateur non autorisé a tenté de vider les logs : {interaction.user.name}")
-            return
-        files_to_clear = {
-            "Log File (Sécurité)": SECURITY_LOG_PATH,
-            "Log File (Erreur)": ERROR_LOG_PATH,
-        }
-        errors = []
-        for file_name, file_path in files_to_clear.items():
-            try:
-                print(Fore.YELLOW + f"[INFO] Vidage de {file_name}. Demandé par {interaction.user.name}" + Style.RESET_ALL)
-                logging.info(f"[INFO] Vidage de {file_name}. Demandé par {interaction.user.name}")
-                if not os.path.exists(file_path):
-                    errors.append(f"{file_name} n'existe pas.")
-                    continue
-                with open(file_path, "w", encoding="utf-8") as file:
-                    file.write("")
-                print(Fore.GREEN + f"[INFO] {file_name} a été vidé." + Style.RESET_ALL)
-                logging.info(f"[INFO] {file_name} a été vidé. Demandé par {interaction.user.name}")
-            except Exception as e:
-                errors.append(f"Erreur lors du vidage de {file_name} : {e}")
-                logging.error(f"[ERROR] Erreur lors du vidage de {file_name} : {e}")
-                print(Fore.RED + f"[ERROR] Erreur lors du vidage de {file_name}" + Style.RESET_ALL)
-        if errors:
-            error_message = "\n".join(errors)
-            await interaction.response.send_message(f"Des erreurs se sont produites :\n{error_message}", ephemeral=True)
-            logging.error(f"[ERROR] Des erreurs se sont produites :{error_message}")
-            print(Fore.RED + f"[ERROR] Des erreurs se sont produites" + Style.RESET_ALL)
-        else:
-            try:
-                await interaction.response.send_message("Tous les fichiers de logs ont été vidés avec succès.", ephemeral=True)
-                print(Fore.GREEN + f"[INFO] Tous les fichiers de logs ont été vidés avec succès." + Style.RESET_ALL)
-            except Exception as e:
-                logging.error(f"[ERROR] Une erreur s'est produite lors de l'envoi de l'imformation à {interaction.user.name} : {e}")
-                print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'envoi de l'imformation à {interaction.user.name}" + Style.RESET_ALL)      
-
-    @bot.tree.command(name="help", description="Afficher l'aide du bot")
-    async def help(interaction: discord.Interaction):
-        try:
-            bot_user = bot.user
-            embed = discord.Embed(
-                title="Aide de Lunaris",
-                description="Voici les principales commandes et fonctionnalités du bot :",
-                color=discord.Color.blue()
-            )
-            embed.set_thumbnail(url=bot_user.display_avatar.url)
-            embed.add_field(name="/help", value="Affiche ce message d'aide.", inline=False)
-            embed.add_field(
-                name="/empty",
-                value="Vide les fichiers de logs du bot (Nexium team seulement).",
-                inline=False
-            )
-            embed.add_field(
-                name="Interaction",
-                value="Mentionne le bot ou utilise son nom pour discuter avec lui.",
-                inline=False
-            )
-            embed.set_footer(text="Développé par Nexium Portal • Lunaris IA")
-            invite_url = f"https://discord.com/oauth2/authorize?client_id={bot_user.id}&scope=bot"
-            embed.add_field(
-                name="Lien d'invitation",
-                value=f"[Clique ici pour inviter le bot]({invite_url})",
-                inline=False
-            )
-            await interaction.response.send_message(embed=embed, ephemeral=True)
-            print(Fore.GREEN + f"[INFO] Message d'aide envoyé à {interaction.user.name}" + Style.RESET_ALL)
-            logging.info(f"[INFO] Message d'aide envoyé à {interaction.user.name}")
-        except Exception as e:
-            await interaction.response.send_message(f"Une erreur s'est produite lors de l'envoi de l'aide : {e}", ephemeral=True)
-            print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'envoi de l'aide : {e}" + Style.RESET_ALL)
-            logging.error(f"[ERROR] Une erreur s'est produite lors de l'envoi de l'aide : {e}")
-
-    @bot.tree.command(name="ping", description="Affiche la latence du bot et de Discord")
-    async def ping(interaction: discord.Interaction):
-        """Affiche la latence du bot et de Discord dans un embed."""
-        bot_latency = round(bot.latency * 1000)
-        if bot_latency < 150:
-            embed = discord.Embed(
-                title=f"🏓 Pong ! {bot_latency} ms",
-                color=discord.Color.green()
-            )
-        else:
-            embed = discord.Embed(
-                title=f"🏓 Pong ! {bot_latency} ms",
-                color=discord.Color.orange()
-            )
-        embed.set_footer(text="Lunaris IA • Nexium Portal")
-        await interaction.response.send_message(embed=embed, ephemeral=True)
-        print(Fore.GREEN + f"[INFO] Ping demandé par {interaction.user.name}" + Style.RESET_ALL)
-        logging.info(f"[INFO] Ping demandé par {interaction.user.name}")
-    
-        # Ajoute ceci dans ton main.py ou un fichier de commandes
-    
-    @bot.tree.command(name="report", description="Envoyer un rapport ou signaler un problème à l'équipe")
-    @app_commands.describe(message="Décris ton problème ou ta suggestion")
-    async def report(interaction: discord.Interaction, message: str):
-        """Permet à un utilisateur d'envoyer un rapport à l'admin ou dans un salon dédié."""
-        await interaction.response.send_message(
-            "Merci pour ton rapport ! L'équipe a bien reçu ta demande.", ephemeral=True
-        )
-    
-        REPORT_CHANNEL_ID = 1360403767274508355 
-    
-        report_embed = discord.Embed(
-            title="",
-            description=f"```{message}```",
-            color=discord.Color.orange()
-        )
-        report_embed.set_author(name=interaction.user.display_name, icon_url=interaction.user.avatar.url)
-        report_embed.set_footer(
-            text=f"Identifiant de {interaction.user.display_name}: {interaction.user.id})"
-        )
-        report_embed.timestamp = datetime.now()
-    
-        # Envoie dans le salon de rapports
-        channel = bot.get_channel(REPORT_CHANNEL_ID)
-        if channel:
-            await channel.send(embed=report_embed)
-        else:
-            # Si le salon n'existe pas, envoie en DM à l'admin (remplace l'ID)
-            ADMIN_ID = 123456789012345678  # <-- À remplacer par ton ID Discord
-            admin = await bot.fetch_user(ADMIN_ID)
-            await admin.send(embed=report_embed)
-     
-    @bot.tree.command(name="explain", description="Donne une explication du code")
-    async def explain(interaction: discord.Interaction, message: str):
-        pass
-
-    @bot.tree.command(name="analyze", description="Renvoie les erreurs / warnings")
-    async def analyze(interaction: discord.Interaction, message: str):
-        pass
-
-    @bot.tree.command(name="challenge", description="Générer un mini-problème Python")
-    async def challenge(interaction: discord.Interaction, message: str):
-        pass
-
-    @bot.tree.command(name="history", description="Afffiche l'historique personnelle")
-    async def history(interaction: discord.Interaction, message: str):
-        pass
-
-    @bot.tree.command(name="visualize", description="Générer une image de l'arbre d'exécution")
-    async def visualize(interaction: discord.Interaction, message: str):
-        pass
-
-    @bot.tree.command(name="config", description="ADMIN | Configurer le bot pour le serveur")
-    async def config(interaction: discord.Interaction, message: str):
-        pass
-
-    @bot.command(name="errors")
-    async def errors(ctx, lines: int = 10):
-        """Affiche les dernières lignes du fichier de logs d'erreur."""
-        await ctx.message.delete() #"""Supprime le message de la commande"""
-        await ctx.defer() #"""Défère la réponse pour éviter le timeout"""
-        """Vérifie si l'utilisateur a les permissions nécessaires"""
-        admin_user = []
-        if not ctx.author.id not in admin_user:
-            print(Fore.BLUE + f"[SECURITY] Utilisateur non autorisé a tenté d'accéder aux erreurs : {ctx.author.name}" + Style.RESET_ALL)
-            logging.warning(f"[SECURITY] Utilisateur non autorisé a tenté d'accéder aux erreurs : {ctx.author.name}")
-            return
-        log_path = ERROR_LOG_PATH
-        if not os.path.exists(log_path):
-            await ctx.send("Le fichier de logs d'erreur n'existe pas.")
-            return
-        try:
-            with open(log_path, "r", encoding="utf-8") as f:
-                lines_content = f.readlines()[-lines:]
-            if not lines_content:
-                await ctx.send("Aucune erreur trouvée dans les logs.")
-                return
-            msg = "```" + "".join(lines_content)[-1900:] + "```"
-            await ctx.send(msg)
-            print(Fore.GREEN + f"[INFO] Logs d'erreur envoyés" + Style.RESET_ALL)
-            logging.info(f"[INFO] Logs d'erreur envoyés à {ctx.author.name}")
-        except Exception as e:
-            await ctx.send(f"Erreur lors de la lecture des logs.")
-            print(Fore.RED + f"[ERROR] Erreur lors de la lecture des logs" + Style.RESET_ALL)
-            logging.error(f"[ERROR] Erreur lors de la lecture des logs : {e}")
+   

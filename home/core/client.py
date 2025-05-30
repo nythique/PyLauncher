@@ -1,4 +1,4 @@
-import discord, logging
+import discord, logging, asyncio
 from discord.ext import commands
 from config.settings import ERROR_LOG_PATH, SECURITY_LOG_PATH, PREFIX
 from colorama import Fore, Style
