@@ -1,5 +1,5 @@
 from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, CONTROLLER_PATH, TEMP_UPLOAD_PATH, STATUS, VERSION, STATUS
-from gen.ces import create_notebook, run_code_in_notebook, pause_notebook, delete_notebook
+from gen.ces import create_notebook, run_code_in_notebook, delete_notebook
 from datetime import datetime
 from itertools import cycle
 from discord.ext import commands, tasks
@@ -249,7 +249,7 @@ def register_commands(bot_instance):
         if isinstance(error, commands.CommandNotFound):
             return
     
-    @bot.tree.command(name="empty", description="DEV|Vider les fichiers de logs.")
+    @bot.tree.command(name="empty", description="DEVS | Vider les fichiers de logs")
     async def empty(interaction: discord.Interaction):
         admin_user = []
         if not interaction.user.id not in admin_user:
@@ -290,7 +290,7 @@ def register_commands(bot_instance):
                 logging.error(f"[ERROR] Une erreur s'est produite lors de l'envoi de l'imformation à {interaction.user.name} : {e}")
                 print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'envoi de l'imformation à {interaction.user.name}" + Style.RESET_ALL)      
 
-    @bot.tree.command(name="help", description="Afficher l'aide du bot.")
+    @bot.tree.command(name="help", description="Afficher l'aide du bot")
     async def help(interaction: discord.Interaction):
         try:
             bot_user = bot.user
@@ -326,8 +326,8 @@ def register_commands(bot_instance):
             print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'envoi de l'aide : {e}" + Style.RESET_ALL)
             logging.error(f"[ERROR] Une erreur s'est produite lors de l'envoi de l'aide : {e}")
 
-    @bot.tree.command(name="latence", description="Affiche la latence du bot et de Discord.")
-    async def latence(interaction: discord.Interaction):
+    @bot.tree.command(name="ping", description="Affiche la latence du bot et de Discord")
+    async def ping(interaction: discord.Interaction):
         """Affiche la latence du bot et de Discord dans un embed."""
         bot_latency = round(bot.latency * 1000)
         if bot_latency < 150:
@@ -377,7 +377,30 @@ def register_commands(bot_instance):
             ADMIN_ID = 123456789012345678  # <-- À remplacer par ton ID Discord
             admin = await bot.fetch_user(ADMIN_ID)
             await admin.send(embed=report_embed)
+     
+    @bot.tree.command(name="explain", description="Donne une explication du code")
+    async def explain(interaction: discord.Interaction, message: str):
+        pass
 
+    @bot.tree.command(name="analyze", description="Renvoie les erreurs / warnings")
+    async def analyze(interaction: discord.Interaction, message: str):
+        pass
+
+    @bot.tree.command(name="challenge", description="Générer un mini-problème Python")
+    async def challenge(interaction: discord.Interaction, message: str):
+        pass
+
+    @bot.tree.command(name="history", description="Afffiche l'historique personnelle")
+    async def history(interaction: discord.Interaction, message: str):
+        pass
+
+    @bot.tree.command(name="visualize", description="Générer une image de l'arbre d'exécution")
+    async def visualize(interaction: discord.Interaction, message: str):
+        pass
+
+    @bot.tree.command(name="config", description="ADMIN | Configurer le bot pour le serveur")
+    async def config(interaction: discord.Interaction, message: str):
+        pass
 
     @bot.command(name="errors")
     async def errors(ctx, lines: int = 10):
