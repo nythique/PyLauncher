@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH
+from home.plugin.rooter import get_admin_ids
 from colorama import Fore, Style
 import logging, os
 
@@ -11,12 +12,15 @@ class Empty(commands.Cog):
 
     @app_commands.command(name="empty", description="DEVS | Vider les fichiers de logs")
     async def empty(self, interaction: discord.Interaction):
-        admin_user = []  # Mets ici les IDs admin autorisés
-        if not interaction.user.id in admin_user:
-            await interaction.response.send_message("Attention ! Vous n'avez pas la permission d'utiliser cette commande.", ephemeral=True)
+        # Vérifie que l'utilisateur est admin global
+        if interaction.user.id not in get_admin_ids():
+            await interaction.response.send_message(
+                "⛔ Vous n'avez pas la permission d'utiliser cette commande.", ephemeral=True
+            )
             print(Fore.BLUE + f"[SECURITY] Utilisateur non autorisé a tenté de vider les logs : {interaction.user.name}" + Style.RESET_ALL)
             logging.warning(f"[SECURITY] Utilisateur non autorisé a tenté de vider les logs : {interaction.user.name}")
             return
+
         files_to_clear = {
             "Log File (Sécurité)": SECURITY_LOG_PATH,
             "Log File (Erreur)": ERROR_LOG_PATH,

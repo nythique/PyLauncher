@@ -34,17 +34,22 @@ try:
         print(Fore.GREEN + "[INFO] Chargement des cogs..." + Style.RESET_ALL)
         import asyncio
         async def load_cogs():
-            await bot.load_extension("commands.admin.empty")
-            await bot.load_extension("commands.admin.errors")
-            await bot.load_extension("commands.public.help")
-            await bot.load_extension("commands.public.ping")
-            await bot.load_extension("commands.public.report")
-            await bot.load_extension("commands.public.explain")
-            await bot.load_extension("commands.public.analyze")
-            await bot.load_extension("commands.public.challenge")
-            await bot.load_extension("commands.public.history")
-            await bot.load_extension("commands.public.visualize")
-            await bot.load_extension("commands.public.config")
+            try:
+                await bot.load_extension("commands.admin.prefix.errors")
+                await bot.load_extension("commands.admin.prefix.premium")
+                await bot.load_extension("commands.admin.empty")
+                await bot.load_extension("commands.admin.config")
+                await bot.load_extension("commands.public.help")
+                await bot.load_extension("commands.public.ping")
+                await bot.load_extension("commands.public.explain")
+                await bot.load_extension("commands.public.analyze")
+                await bot.load_extension("commands.public.challenge")
+                await bot.load_extension("commands.public.visualize")
+                await bot.load_extension("commands.public.set")
+                await bot.load_extension("commands.public.profil")
+            except Exception as e:
+                logging.error(f"[ERROR] Erreur lors du chargement d'une cog : {e}")
+                print(Fore.RED + f"[ERROR] Erreur lors du chargement d'une cog : {e}" + Style.RESET_ALL)
         asyncio.run(load_cogs())
     except Exception as e:
         print(Fore.RED + f"[ERROR] Erreur lors du chargement des cogs" + Style.RESET_ALL)

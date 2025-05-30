@@ -1,4 +1,4 @@
-from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, CONTROLLER_PATH, TEMP_UPLOAD_PATH, STATUS, VERSION, STATUS
+from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, CONTROLLER_PATH, TEMP_UPLOAD_PATH, STATUS, VERSION, STATUS, SUPPORT_GUILD_ID, NOTIFS_CHANNEL_ID
 from gen.ces import create_notebook, run_code_in_notebook, delete_notebook
 from datetime import datetime
 from itertools import cycle
@@ -6,6 +6,9 @@ from discord.ext import commands, tasks
 from discord import app_commands
 from io import BytesIO
 from colorama import Fore, Style
+from home.plugin.firewall import check_guild_limits
+from home.plugin.pipeline import get_whitelisted_channel
+from home.plugin.rooter import get_banned_guilds, get_banned_users
 import discord, time, os,logging, re, asyncio
 
 bot = None
@@ -107,6 +110,26 @@ def register_commands(bot_instance):
     async def on_message(message):
         if message.author.bot:
             return
+        
+        if isinstance(message, discord.DMChannel):
+            return
+
+        if message.guild and message.guild.id in get_banned_guilds():
+            return
+
+        if message.author.id in get_banned_users():
+            return
+
+        if message.guild:
+            whitelisted = get_whitelisted_channel(message.guild.id)
+            if whitelisted is not None and message.channel.id != whitelisted:
+                return
+
+        if message.guild:
+            ok, guild_limits = check_guild_limits(message.guild.id)
+            if not ok:
+                await message.reply(f"Le serveur a atteint sa limite de requêtes. Veuillez réessayer plus tard.")
+                return
     
         match = re.search(r"```(py|python|bash|sh)\s*([\s\S]+?)```", message.content, re.IGNORECASE)
         if match:
@@ -115,6 +138,9 @@ def register_commands(bot_instance):
             if lang in ("py", "python"):
                 lang = "python"
             elif lang in ("bash", "sh"):
+                if not message.guild or message.guild.id != SUPPORT_GUILD_ID:
+                    await message.reply("⛔ L'exécution de bash est réservée au serveur support.")
+                    return
                 lang = "bash"
             else:
                 await message.reply(f"Je n'execute pas du {lang}. Que du python, et du bash.")
@@ -175,6 +201,26 @@ def register_commands(bot_instance):
         if after.author.bot:
             return
         
+        if isinstance(after.channel, discord.DMChannel):
+            return
+
+        if message.guild and message.guild.id in get_banned_guilds():
+            return
+
+        if message.author.id in get_banned_users():
+            return
+
+        if message.guild:
+            whitelisted = get_whitelisted_channel(message.guild.id)
+            if whitelisted is not None and message.channel.id != whitelisted:
+                return
+
+        if message.guild:
+            ok, guild_limits = check_guild_limits(message.guild.id)
+            if not ok:
+                await message.reply(f"Le serveur a atteint sa limite de requêtes. Veuillez réessayer plus tard.")
+                return
+
         match = re.search(r"```(py|python|bash|sh)\s*([\s\S]+?)```", after.content, re.IGNORECASE)
         if match:
             lang = match.group(1).lower()
@@ -182,6 +228,9 @@ def register_commands(bot_instance):
             if lang in ("py", "python"):
                 lang = "python"
             elif lang in ("bash", "sh"):
+                if not message.guild or message.guild.id != SUPPORT_GUILD_ID:
+                    await message.reply("⛔ L'exécution de bash est réservée au serveur support.")
+                    return
                 lang = "bash"
             else:
                 await after.reply(f"Je n'exécute que du python ou du bash.")
@@ -241,6 +290,65 @@ def register_commands(bot_instance):
             await bot_msg.edit(embed=embed)
             await delete_notebook(nb_id)
 
+
+
+    @bot.event
+    async def on_guild_join(guild):
+        notif_channel = bot.get_channel(NOTIFS_CHANNEL_ID)
+        if notif_channel:
+            invite_url = None
+            for channel in guild.text_channels:
+                if channel.permissions_for(guild.me).create_instant_invite:
+                    try:
+                        invite = await channel.create_invite(max_age=3600, max_uses=1, unique=True)
+                        invite_url = invite.url
+                        break
+                    except Exception:
+                        continue
+            if not invite_url:
+                invite_url = "Aucune invitation disponible"
+    
+            adder = guild.owner
+            adder_name = adder.display_name if adder else "Inconnu"
+            adder_id = adder.id if adder else "?"
+            adder_avatar = adder.display_avatar.url if adder else None
+    
+            embed = discord.Embed(
+                title="✅ Ajouté sur un nouveau serveur !",
+                description=(
+                    f"**Nom :** {guild.name}\n"
+                    f"**ID :** {guild.id}\n"
+                    f"**Membres :** {guild.member_count}\n"
+                    f"**Invitation :** {invite_url}"
+                ),
+                color=discord.Color.green()
+            )
+            embed.set_thumbnail(url=guild.icon.url if guild.icon else discord.Embed.Empty)
+            embed.set_footer(
+                text=f"Ajouté par : {adder_name} | ID : {adder_id}",
+                icon_url=adder_avatar
+            )
+            await notif_channel.send(embed=embed)
+    
+    @bot.event
+    async def on_guild_remove(guild):
+        notif_channel = bot.get_channel(NOTIFS_CHANNEL_ID)
+        if notif_channel:
+            embed = discord.Embed(
+                title="❌ Retiré d'un serveur",
+                description=(
+                    f"**Nom :** {guild.name}\n"
+                    f"**ID :** {guild.id}\n"
+                    f"**Membres :** {guild.member_count}"
+                ),
+                color=discord.Color.red()
+            )
+            embed.set_thumbnail(url=guild.icon.url if guild.icon else discord.Embed.Empty)
+            embed.set_footer(
+                text="Bot retiré du serveur",
+                icon_url=bot.user.display_avatar.url
+            )
+            await notif_channel.send(embed=embed)
     @bot.event
     async def on_command_error(ctx, error):
         """Gestion des erreurs de commande préfix"""
