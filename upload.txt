@@ -3,3 +3,4 @@ colorama
 requests
 pyflakes
 groq
+nbformat

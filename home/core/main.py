@@ -1,4 +1,4 @@
-from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, CONTROLLER_PATH, TEMP_UPLOAD_PATH, STATUS, VERSION, STATUS, SUPPORT_GUILD_ID, NOTIFS_CHANNEL_ID
+from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, CONTROLLER_PATH, TEMP_UPLOAD_PATH, VERSION, STATUS, SUPPORT_GUILD_ID, NOTIFS_CHANNEL_ID
 from gen.ces import create_notebook, run_code_in_notebook, delete_notebook
 from datetime import datetime
 from itertools import cycle
@@ -12,7 +12,7 @@ from home.plugin.rooter import get_banned_guilds, get_banned_users
 import discord, time, os,logging, re, asyncio
 
 bot = None
-MAX_DISCORD_MSG_LEN = 1800 # Limite de sécurité pour Discord.
+MAX_DISCORD_MSG_LEN = 1800 
 
 
 """Handler pour les logs info et warning"""
@@ -41,12 +41,19 @@ def slowType(text, delay=0.1):
         print(char, end='', flush=True)
         time.sleep(delay)
 
+STATUS = [
+    "🚀 En ligne",
+    "Utilise /help pour l'aide",
+    "PyLauncher par Nexium Portal",
+    "Sur {0} serveurs".format(len(bot.guilds))
+]
+
 status = cycle(STATUS) 
-@tasks.loop(seconds=3)
+@tasks.loop(seconds=5)
 async def status_swap(bot):
-    """Change le statut du bot Discord à intervalle régulier"""
     try:
-        await bot.change_presence(activity=discord.CustomActivity(next(status)))
+        current_status = next(status)
+        await bot.change_presence(activity=discord.CustomActivity(current_status))
         logging.info(f"[INFO] Statut changé : {next(status)}")
     except Exception as e:
         print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du changement de statut" + Style.RESET_ALL)
@@ -62,7 +69,7 @@ def display_banner():
     ║   This software is developed by Nexium Portal on 01/05/2020.     ║
     ║   All rights reserved.                                           ║
     ║                                                                  ║
-    ║   Version: {version}                                      ║
+    ║   Version: {version}                                        ║
     ║   Bot started on: {current_date}                            ║
     ║                                                                  ║
     ║   Unauthorized copying, distribution, or modification of this    ║
@@ -204,21 +211,21 @@ def register_commands(bot_instance):
         if isinstance(after.channel, discord.DMChannel):
             return
 
-        if message.guild and message.guild.id in get_banned_guilds():
+        if after.guild and after.guild.id in get_banned_guilds():
             return
 
-        if message.author.id in get_banned_users():
+        if after.author.id in get_banned_users():
             return
 
-        if message.guild:
-            whitelisted = get_whitelisted_channel(message.guild.id)
-            if whitelisted is not None and message.channel.id != whitelisted:
+        if after.guild:
+            whitelisted = get_whitelisted_channel(after.guild.id)
+            if whitelisted is not None and after.channel.id != whitelisted:
                 return
 
-        if message.guild:
-            ok, guild_limits = check_guild_limits(message.guild.id)
+        if after.guild:
+            ok, guild_limits = check_guild_limits(after.guild.id)
             if not ok:
-                await message.reply(f"Le serveur a atteint sa limite de requêtes. Veuillez réessayer plus tard.")
+                await after.reply(f"Le serveur a atteint sa limite de requêtes. Veuillez réessayer plus tard.")
                 return
 
         match = re.search(r"```(py|python|bash|sh)\s*([\s\S]+?)```", after.content, re.IGNORECASE)
@@ -228,8 +235,8 @@ def register_commands(bot_instance):
             if lang in ("py", "python"):
                 lang = "python"
             elif lang in ("bash", "sh"):
-                if not message.guild or message.guild.id != SUPPORT_GUILD_ID:
-                    await message.reply("⛔ L'exécution de bash est réservée au serveur support.")
+                if not after.guild or after.guild.id != SUPPORT_GUILD_ID:
+                    await after.reply("⛔ L'exécution de bash est réservée au serveur support.")
                     return
                 lang = "bash"
             else:
@@ -289,8 +296,6 @@ def register_commands(bot_instance):
             )
             await bot_msg.edit(embed=embed)
             await delete_notebook(nb_id)
-
-
 
     @bot.event
     async def on_guild_join(guild):

@@ -5,25 +5,20 @@ from config.settings import GROQ_TOKEN, MODEL, FREQUENCY, TEMPERATURE, MAX_TOKEN
 from groq import Groq
 import time
 
-class Challenge(commands.Cog):
+class Search(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="challenge", description="Générer un mini-problème Python")
-    @app_commands.describe(
-        niveau="Niveau de difficulté du challenge",
-        message="Sujet ou thème du challenge (optionnel)"
+    @app_commands.command(
+        name="search",
+        description="Obtiens une réponse à une question Python"
     )
-    @app_commands.choices(niveau=[
-        app_commands.Choice(name="Nuls", value="nuls"),
-        app_commands.Choice(name="Débutant", value="debutant"),
-        app_commands.Choice(name="Intermédiaire", value="intermediaire"),
-        app_commands.Choice(name="Avancé", value="avance"),
-        app_commands.Choice(name="Pro", value="pro"),
-    ])
-    async def challenge(self, interaction: discord.Interaction, niveau: app_commands.Choice[str], message: str = None):
+    @app_commands.describe(
+        query="Question ou sujet Python à rechercher"
+    )
+    async def search(self, interaction: discord.Interaction, query: str):
         wait_embed = discord.Embed(
-            description="<a:cargando:1377376325077172275> Génération du challenge en cours...",
+            description="<a:cargando:1377376325077172275> Génération du notebook en cours...",
             color=discord.Color.blurple()
         )
         await interaction.response.send_message(embed=wait_embed, ephemeral=True)
@@ -31,15 +26,14 @@ class Challenge(commands.Cog):
             start = time.perf_counter()
             client = Groq(api_key=GROQ_TOKEN)
             prompt = (
-                f"Génère un mini-problème Python adapté à un niveau '{niveau.name}'. "
-                f"{'Le thème est : ' + message if message else ''} "
-                "Le challenge doit être court, clair, et adapté au niveau. "
-                "Ne donne que l'énoncé du problème, sans solution, sans salutation, sans explication."
+                f"Réponds de façon claire, précise et en français à la question suivante sur Python. "
+                "Ne donne que la réponse, sans salutation, sans introduction, sans conclusion, sans commentaire inutile.\n"
+                f"Question : {query}\n\nRéponse :"
             )
             response = client.chat.completions.create(
                 model=MODEL,
                 messages=[
-                    {"role": "system", "content": "Tu es un assistant qui crée des mini-challenges Python adaptés au niveau demandé. Tu ne donnes que l'énoncé du problème, sans solution ni explication."},
+                    {"role": "system", "content": "Tu es un assistant Python qui répond de façon claire, concise et précise, uniquement en français, sans salutation ni commentaire inutile."},
                     {"role": "user", "content": prompt}
                 ],
                 max_tokens=MAX_TOKENS,
@@ -50,10 +44,10 @@ class Challenge(commands.Cog):
                 temperature=TEMPERATURE
             )
             elapsed = (time.perf_counter() - start) * 1000  # ms
-            challenge_text = response.choices[0].message.content.strip()
+            answer = response.choices[0].message.content.strip()
             embed = discord.Embed(
-                title=f"Challenge Python ({niveau.name})",
-                description=challenge_text[:3800],
+                title=f"Réponse à : {query}",
+                description=answer[:3800],
                 color=discord.Color.blurple()
             )
             embed.set_footer(
@@ -63,7 +57,7 @@ class Challenge(commands.Cog):
             await interaction.edit_original_response(embed=embed)
         except Exception as e:
             embed = discord.Embed(
-                title="Erreur lors de la génération",
+                title="Erreur lors de la recherche",
                 description=f"❌ Une erreur est survenue : {e}",
                 color=discord.Color.red()
             )
@@ -74,4 +68,4 @@ class Challenge(commands.Cog):
             await interaction.edit_original_response(embed=embed)
 
 async def setup(bot):
-    await bot.add_cog(Challenge(bot))
+    await bot.add_cog(Search(bot))

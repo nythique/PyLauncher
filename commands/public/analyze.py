@@ -4,30 +4,49 @@ from discord import app_commands
 import pyflakes.api
 import pyflakes.reporter
 import io
+import time
 
 class Analyze(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="analyze", description="Renvoie les erreurs / warnings Python")
-    @app_commands.describe(message="Le code à analyser")
-    async def analyze(self, interaction: discord.Interaction, message: str):
-        await interaction.response.defer(thinking=True, ephemeral=True)
-        output = io.StringIO()
-        reporter = pyflakes.reporter.Reporter(output, output)
-        pyflakes.api.check(message, "<input>", reporter=reporter)
-        result = output.getvalue().strip()
-        if not result:
-            result = "✅ Aucun problème détecté !"
-            color = discord.Color.green()
-        else:
-            color = discord.Color.orange()
-        embed = discord.Embed(
-            title="Analyse du code",
-            description=f"```{result}```",
-            color=color
+    @app_commands.command(name="analyze", description="Analyse le code Python et renvoie erreurs/warnings")
+    @app_commands.describe(code="Le code à analyser")
+    async def analyze(self, interaction: discord.Interaction, code: str):
+        wait_embed = discord.Embed(
+            description="<a:cargando:1377376325077172275> Analyse du code en cours...",
+            color=discord.Color.blurple()
         )
-        await interaction.followup.send(embed=embed, ephemeral=True)
+        wait_message = await interaction.response.send_message(embed=wait_embed, ephemeral=True)
+        try:
+            start = time.perf_counter()
+            output = io.StringIO()
+            reporter = pyflakes.reporter.Reporter(output, output)
+            pyflakes.api.check(code, "<input>", reporter=reporter)
+            result = output.getvalue().strip()
+            elapsed = (time.perf_counter() - start) * 1000  # ms
+            if not result:
+                result = "✅ Aucun problème détecté !"
+                color = discord.Color.green()
+            else:
+                color = discord.Color.orange()
+            embed = discord.Embed(
+                title="🔎 Analyse du code Python",
+                description=f"```{result}```",
+                color=color
+            )
+            embed.set_footer(
+                text=f"PyLauncher • Analyse statique • {elapsed:.1f} ms",
+                icon_url=self.bot.user.display_avatar.url
+            )
+            await interaction.edit_original_response(embed=embed)
+        except Exception as e:
+            embed = discord.Embed(
+                title="Erreur lors de l'analyse",
+                description=f"❌ Une erreur est survenue : {e}",
+                color=discord.Color.red()
+            )
+            await interaction.edit_original_response(embed=embed)
 
 async def setup(bot):
     await bot.add_cog(Analyze(bot))

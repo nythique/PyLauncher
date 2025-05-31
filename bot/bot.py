@@ -35,18 +35,22 @@ try:
         import asyncio
         async def load_cogs():
             try:
-                await bot.load_extension("commands.admin.errors")
-                await bot.load_extension("commands.admin.setpremium")
+                await bot.load_extension("commands.admin.debug")
+                await bot.load_extension("commands.admin.unleash")
                 await bot.load_extension("commands.admin.empty")
                 await bot.load_extension("commands.admin.config")
+                await bot.load_extension("commands.admin.stats")
                 await bot.load_extension("commands.public.help")
                 await bot.load_extension("commands.public.ping")
                 await bot.load_extension("commands.public.explain")
                 await bot.load_extension("commands.public.analyze")
                 await bot.load_extension("commands.public.challenge")
-                await bot.load_extension("commands.public.visualize")
                 await bot.load_extension("commands.public.set")
                 await bot.load_extension("commands.public.profil")
+                await bot.load_extension("commands.public.transpile")
+                await bot.load_extension("commands.public.docs")
+                await bot.load_extension("commands.public.notebook")
+                await bot.load_extension("commands.public.search")
             except Exception as e:
                 logging.error(f"[ERROR] Erreur lors du chargement d'une cog : {e}")
                 print(Fore.RED + f"[ERROR] Erreur lors du chargement d'une cog : {e}" + Style.RESET_ALL)
