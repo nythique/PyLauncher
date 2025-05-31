@@ -35,8 +35,8 @@ try:
         import asyncio
         async def load_cogs():
             try:
-                await bot.load_extension("commands.admin.prefix.errors")
-                await bot.load_extension("commands.admin.prefix.premium")
+                await bot.load_extension("commands.admin.errors")
+                await bot.load_extension("commands.admin.setpremium")
                 await bot.load_extension("commands.admin.empty")
                 await bot.load_extension("commands.admin.config")
                 await bot.load_extension("commands.public.help")

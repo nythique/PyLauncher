@@ -1,9 +1,9 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
+from config.settings import GROQ_TOKEN
 import groq, os
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY") 
 
 class Explain(commands.Cog):
     def __init__(self, bot):
@@ -14,7 +14,7 @@ class Explain(commands.Cog):
     async def explain(self, interaction: discord.Interaction, message: str):
         await interaction.response.defer(thinking=True, ephemeral=True)
         try:
-            client = groq.Groq(api_key=GROQ_API_KEY)
+            client = groq.Groq(api_key=GROQ_TOKEN)
             prompt = (
                 "Explique simplement ce que fait ce code Python, ligne par ligne, en français :\n"
                 f"{message}\n\nExplication :"
