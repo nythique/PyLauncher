@@ -10,7 +10,7 @@ class Analyze(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="analyze", description="Analyse le code Python et renvoie erreurs/warnings")
+    @app_commands.command(name="analyze", description="Analyser le code Python pour détecter les erreurs")
     @app_commands.describe(code="Le code à analyser")
     async def analyze(self, interaction: discord.Interaction, code: str):
         wait_embed = discord.Embed(
@@ -36,14 +36,16 @@ class Analyze(commands.Cog):
                 color=color
             )
             embed.set_footer(
-                text=f"PyLauncher • Analyse statique • {elapsed:.1f} ms",
+                text=f"PyLauncher • Analyse statique en {elapsed:.1f} ms",
                 icon_url=self.bot.user.display_avatar.url
             )
             await interaction.edit_original_response(embed=embed)
         except Exception as e:
             embed = discord.Embed(
                 title="Erreur lors de l'analyse",
-                description=f"❌ Une erreur est survenue : {e}",
+                description=f"❌ Une erreur s'est produite lors de l'analyse du code :\n```{str(e)}```"
+                "Veuillez vérifier que le code est correct et réessayer."
+                " Si le problème persiste, veuillez contacter le support.",
                 color=discord.Color.red()
             )
             await interaction.edit_original_response(embed=embed)

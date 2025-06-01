@@ -9,12 +9,12 @@ class Transpiling(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="transpile", description="Convertit du code d'un autre langage vers Python")
+    @app_commands.command(name="transpile", description="Convertit du code en Python")
     @app_commands.describe(
-        source_lang="Langage source du code à convertir",
+        language="Langage source du code à convertir",
         code="Le code à convertir en Python"
     )
-    @app_commands.choices(source_lang=[
+    @app_commands.choices(language=[
         app_commands.Choice(name="JavaScript", value="JavaScript"),
         app_commands.Choice(name="Java", value="Java"),
         app_commands.Choice(name="C", value="C"),
@@ -29,7 +29,7 @@ class Transpiling(commands.Cog):
     async def transpile(
         self,
         interaction: discord.Interaction,
-        source_lang: app_commands.Choice[str],
+        language: app_commands.Choice[str],
         code: str
     ):
         wait_embed = discord.Embed(
@@ -41,7 +41,7 @@ class Transpiling(commands.Cog):
             start = time.perf_counter()
             client = Groq(api_key=GROQ_TOKEN)
             prompt = (
-                f"Convertis ce code {source_lang.value} en code Python équivalent. "
+                f"Convertis ce code {language.value} en code Python équivalent. "
                 "Ne donne que le code Python, sans explication, sans commentaire, sans introduction ni conclusion.\n"
                 f"Code à convertir :\n{code}\n\nCode Python :"
             )
@@ -61,19 +61,21 @@ class Transpiling(commands.Cog):
             elapsed = (time.perf_counter() - start) * 1000  # temps en ms
             python_code = response.choices[0].message.content.strip()
             embed = discord.Embed(
-                title=f"Transpilation {source_lang.value} → Python",
+                title=f"Transpilation {language.value} → Python",
                 description=f"```python\n{python_code[:3800]}```",
                 color=discord.Color.blurple()
             )
             embed.set_footer(
-                text=f"PyLauncher • {elapsed:.1f} ms",
+                text=f"PyLauncher • Transpilation en {elapsed:.1f} ms. Propulsé par Nexium Portal",
                 icon_url=self.bot.user.display_avatar.url
             )
             await interaction.edit_original_response(embed=embed)
         except Exception as e:
             embed = discord.Embed(
                 title="Erreur lors de la transpilation",
-                description=f"❌ Une erreur est survenue : {e}",
+                description=f"❌ Signalement d'erreur : {str(e)}\n\n"
+                "Veuillez vérifier que le code est correct et réessayer."
+                "Si le problème persiste, veuillez contacter le support.",
                 color=discord.Color.red()
             )
             embed.set_footer(

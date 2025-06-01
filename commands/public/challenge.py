@@ -12,7 +12,7 @@ class Challenge(commands.Cog):
     @app_commands.command(name="challenge", description="Générer un mini-problème Python")
     @app_commands.describe(
         niveau="Niveau de difficulté du challenge",
-        message="Sujet ou thème du challenge (optionnel)"
+        subject="Sujet ou thème du challenge (optionnel)"
     )
     @app_commands.choices(niveau=[
         app_commands.Choice(name="Nuls", value="nuls"),
@@ -21,7 +21,7 @@ class Challenge(commands.Cog):
         app_commands.Choice(name="Avancé", value="avance"),
         app_commands.Choice(name="Pro", value="pro"),
     ])
-    async def challenge(self, interaction: discord.Interaction, niveau: app_commands.Choice[str], message: str = None):
+    async def challenge(self, interaction: discord.Interaction, niveau: app_commands.Choice[str], subject: str = None):
         wait_embed = discord.Embed(
             description="<a:cargando:1377376325077172275> Génération du challenge en cours...",
             color=discord.Color.blurple()
@@ -32,7 +32,7 @@ class Challenge(commands.Cog):
             client = Groq(api_key=GROQ_TOKEN)
             prompt = (
                 f"Génère un mini-problème Python adapté à un niveau '{niveau.name}'. "
-                f"{'Le thème est : ' + message if message else ''} "
+                f"{'Le thème est : ' + subject if subject else ''} "
                 "Le challenge doit être court, clair, et adapté au niveau. "
                 "Ne donne que l'énoncé du problème, sans solution, sans salutation, sans explication."
             )
@@ -57,14 +57,16 @@ class Challenge(commands.Cog):
                 color=discord.Color.blurple()
             )
             embed.set_footer(
-                text=f"PyLauncher • {elapsed:.1f} ms",
+                text=f"PyLauncher • Challenge géneré en{elapsed:.1f} ms",
                 icon_url=self.bot.user.display_avatar.url
             )
             await interaction.edit_original_response(embed=embed)
         except Exception as e:
             embed = discord.Embed(
                 title="Erreur lors de la génération",
-                description=f"❌ Une erreur est survenue : {e}",
+                description=f"❌ Une erreur s'est produite :\n```{str(e)}```"
+                "Veuillez vérifier que le niveau est correct et réessayer."
+                " Si le problème persiste, veuillez contacter le support.",
                 color=discord.Color.red()
             )
             embed.set_footer(
