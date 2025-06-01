@@ -10,23 +10,21 @@ class Premium(commands.Cog):
 
     @app_commands.command(
         name="unleash",
-        description="Active ou désactive le premium pour un serveur (admin global uniquement)"
+        description="DEVS : Gérer les limitations d'un serveur"
     )
     @app_commands.describe(
-        guild_id="ID du serveur à modifier",
-        status="Activer ou désactiver le premium (true/false)"
+        serverID="Id du serveur",
+        max="Limiter ou non ? (true/false)"
     )
-    async def unleash(self, interaction: discord.Interaction, guild_id: str, status: str):
-        # Vérifie que l'utilisateur est admin global
+    async def unleash(self, interaction: discord.Interaction, serverID: str, max: str):
         if interaction.user.id not in get_admin_ids():
             embed = discord.Embed(
-                title="Accès Premium",
+                title="Accès Refusé",
                 description=(
-                    "⛔ Seuls les administrateurs globaux peuvent activer le premium directement.\n\n"
-                    "Pour obtenir le premium sur votre serveur, merci de contacter le support Nexium Portal.\n"
-                    "Le système de paiement automatique arrive bientôt !"
+                    "⛔ Vous n'avez pas le droit d'utiliser cette commande.\n"
+                    "Pour debloquer les limitations du serveur, contactez le support."
                 ),
-                color=discord.Color.orange()
+                color=discord.Color.red()
             )
             embed.set_footer(
                 text="Support Nexium Portal",
@@ -37,7 +35,7 @@ class Premium(commands.Cog):
 
         if status.lower() not in ["true", "false"]:
             embed = discord.Embed(
-                description="Utilisation : `/premium <guild_id> <true|false>`",
+                description="Utilisation : `/unleash <serverId> <true|false>`",
                 color=discord.Color.orange()
             )
             await interaction.response.send_message(embed=embed, ephemeral=True)
@@ -45,15 +43,15 @@ class Premium(commands.Cog):
 
         try:
             set_guild_premium(str(guild_id), premium=(status.lower() == "true"))
-            msg = "Premium activé ✅" if status.lower() == "true" else "Premium désactivé ❌"
+            msg = "Limites supprimées ✅" if status.lower() == "true" else "Limites imposées ❌"
             embed = discord.Embed(
-                description=f"{msg} pour le serveur avec l'ID **{guild_id}**.",
-                color=discord.Color.green() if status.lower() == "true" else discord.Color.red()
+                description=f"{msg} pour le serveur avec l'ID **{serverId}**.",
+                color=discord.Color.green() if status.lower() == "true" else discord.Color.orange()
             )
             await interaction.response.send_message(embed=embed, ephemeral=True)
         except Exception as e:
             embed = discord.Embed(
-                description=f"❌ Erreur lors de la modification du premium : {e}",
+                description=f"Erreur s'est produite : {e}",
                 color=discord.Color.red()
             )
             await interaction.response.send_message(embed=embed, ephemeral=True)

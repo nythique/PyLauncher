@@ -10,13 +10,12 @@ class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="debug", description="Affiche les dernières lignes du fichier de logs d'erreur (admin global uniquement)")
+    @app_commands.command(name="debug", description="DEVS : Afficher les erreurs du bot")
     @app_commands.describe(lines="Nombre de lignes à afficher (défaut : 10)")
     async def debug(self, interaction: discord.Interaction, lines: int = 10):
-        # Vérifie que l'utilisateur est admin global
         if interaction.user.id not in get_admin_ids():
             await interaction.response.send_message(
-                "⛔ Seuls les administrateurs globaux peuvent utiliser cette commande.", ephemeral=True
+                "⛔ Vous n'avez pas l'autorisation d'utiliser cette commande.", ephemeral=True
             )
             print(Fore.BLUE + f"[SECURITY] Utilisateur non autorisé a tenté d'accéder aux erreurs : {interaction.user.name}" + Style.RESET_ALL)
             logging.warning(f"[SECURITY] Utilisateur non autorisé a tenté d'accéder aux erreurs : {interaction.user.name}")

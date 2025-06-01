@@ -7,12 +7,11 @@ class Stats(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="stats", description="Affiche les statistiques globales du bot (admin uniquement)")
+    @app_commands.command(name="stats", description="DEVS : Statistiques globales")
     async def stats(self, interaction: discord.Interaction):
-        # Vérifie que l'utilisateur est admin global
         if interaction.user.id not in get_admin_ids():
             await interaction.response.send_message(
-                "⛔ Seuls les administrateurs globaux peuvent utiliser cette commande.", ephemeral=True
+                "⛔ Vous n'avez pas l'autorisation d'utiliser cette commande.", ephemeral=True
             )
             return
 
