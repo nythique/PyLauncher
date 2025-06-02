@@ -13,7 +13,7 @@ class Config(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="config", description="DEVS : Gérer les règles du bot")
+    @app_commands.command(name="config", description="DEVS | Gérer les règles du bot")
     @app_commands.describe(
         action="Action à effectuer",
         identifier="Identifiant du serveur ou de l'utilisateur (si nécessaire)"

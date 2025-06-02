@@ -10,13 +10,13 @@ class Premium(commands.Cog):
 
     @app_commands.command(
         name="unleash",
-        description="DEVS : Gérer les limitations d'un serveur"
+        description="DEVS | Gérer les limitations d'un serveur"
     )
     @app_commands.describe(
-        serverID="Id du serveur",
+        server="Id du serveur",
         max="Limiter ou non ? (true/false)"
     )
-    async def unleash(self, interaction: discord.Interaction, serverID: str, max: str):
+    async def unleash(self, interaction: discord.Interaction, server: str, max: str):
         if interaction.user.id not in get_admin_ids():
             embed = discord.Embed(
                 title="Accès Refusé",
@@ -45,7 +45,7 @@ class Premium(commands.Cog):
             set_guild_premium(str(guild_id), premium=(status.lower() == "true"))
             msg = "Limites supprimées ✅" if status.lower() == "true" else "Limites imposées ❌"
             embed = discord.Embed(
-                description=f"{msg} pour le serveur avec l'ID **{serverId}**.",
+                description=f"{msg} pour le serveur avec l'ID **{server}**.",
                 color=discord.Color.green() if status.lower() == "true" else discord.Color.orange()
             )
             await interaction.response.send_message(embed=embed, ephemeral=True)

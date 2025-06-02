@@ -7,7 +7,7 @@ class Stats(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="stats", description="DEVS : Statistiques globales")
+    @app_commands.command(name="stats", description="DEVS | Statistiques globales")
     async def stats(self, interaction: discord.Interaction):
         if interaction.user.id not in get_admin_ids():
             await interaction.response.send_message(

@@ -10,7 +10,7 @@ class Empty(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="empty", description="DEVS : Vider les fichiers de logs")
+    @app_commands.command(name="empty", description="DEVS | Vider les fichiers de logs")
     async def empty(self, interaction: discord.Interaction):
         if interaction.user.id not in get_admin_ids():
             await interaction.response.send_message(

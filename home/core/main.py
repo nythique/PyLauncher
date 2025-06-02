@@ -1,4 +1,4 @@
-from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, CONTROLLER_PATH, TEMP_UPLOAD_PATH, VERSION, STATUS, SUPPORT_GUILD_ID, NOTIFS_CHANNEL_ID
+from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, CONTROLLER_PATH, TEMP_UPLOAD_PATH, VERSION, SUPPORT_GUILD_ID, NOTIFS_CHANNEL_ID
 from gen.ces import create_notebook, run_code_in_notebook, delete_notebook
 from datetime import datetime
 from itertools import cycle
@@ -41,20 +41,23 @@ def slowType(text, delay=0.1):
         print(char, end='', flush=True)
         time.sleep(delay)
 
+
 STATUS = [
     "🚀 En ligne",
     "Utilise /help pour l'aide",
     "PyLauncher par Nexium Portal",
-    "Sur {0} serveurs".format(len(bot.guilds))
+    "serveurs_dyn"
 ]
+status = cycle(STATUS)
 
-status = cycle(STATUS) 
 @tasks.loop(seconds=5)
 async def status_swap(bot):
     try:
         current_status = next(status)
+        if current_status == "serveurs_dyn":
+            current_status = f"Sur {len(bot.guilds)} serveurs"
         await bot.change_presence(activity=discord.CustomActivity(current_status))
-        logging.info(f"[INFO] Statut changé : {next(status)}")
+        logging.info(f"[INFO] Statut changé : {current_status}")
     except Exception as e:
         print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du changement de statut" + Style.RESET_ALL)
         logging.error(f"[ERROR] Une erreur s'est produite lors du changement de statut : {e}")
