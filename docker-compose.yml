@@ -1,0 +1,9 @@
+services:
+  pylauncher:
+    build: .
+    image: pylauncher:Installer-1.17
+    container_name: pylauncher
+    volumes:
+      - ./PyLauncherVD:/app/PyLauncher/home/cluster/global/
+      - ./PyLauncherVC:/app/PyLauncher/config/controller/
+    restart: unless-stopped
