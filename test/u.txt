@@ -1,0 +1,206 @@
+import discord
+from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH
+import logging
+from discord.ext import commands, tasks
+from discord import app_commands
+import json, random, os
+
+QUIZ_DATA_PATH = "home/cluster/global/quiz_servers.json"
+QUIZ_QUESTIONS_PATH = "home/cluster/global/quiz_questions.json"
+QUIZ_INTERVAL = 10  # 25*60*60 pour 25h, 60 pour test
+
+# Configuration des handlers de logs
+info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
+info_handler.setLevel(logging.INFO)
+info_handler.setFormatter(logging.Formatter(
+    '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
+))
+
+error_handler = logging.FileHandler(ERROR_LOG_PATH, encoding='utf-8')
+error_handler.setLevel(logging.ERROR)
+error_handler.setFormatter(logging.Formatter(
+    '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
+))
+
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.INFO)
+console_handler.setFormatter(logging.Formatter(
+    '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
+))
+
+logging.getLogger().handlers = []
+logging.getLogger().addHandler(info_handler)
+logging.getLogger().addHandler(error_handler)
+logging.getLogger().addHandler(console_handler)
+logging.getLogger().setLevel(logging.INFO)
+logger = logging.getLogger(__name__)
+
+def load_json(path):
+    try:
+        if not os.path.exists(path):
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump({}, f)
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        logger.error(f"Erreur lors du chargement du fichier {path} : {e}")
+        return {}
+
+def save_json(path, data):
+    try:
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+    except Exception as e:
+        logger.error(f"Erreur lors de la sauvegarde du fichier {path} : {e}")
+
+class QuizModal(discord.ui.Modal, title="Répondez au quiz !"):
+    def __init__(self, question, answer, callback):
+        super().__init__()
+        self.answer = answer
+        self.callback_func = callback
+        self.add_item(discord.ui.InputText(label=question, placeholder="Votre réponse ici..."))
+
+    async def callback(self, interaction: discord.Interaction):
+        user_answer = self.children[0].value.strip().lower()
+        await self.callback_func(interaction, user_answer == self.answer.lower())
+
+class Quiz(commands.GroupCog, group_name="quiz"):
+    def __init__(self, bot):
+        super().__init__()  # <-- AJOUT OBLIGATOIRE !
+        self.bot = bot
+
+    async def cog_load(self):
+        print("COG_LOAD APPELÉ")  # <-- Ajoute cette ligne
+        logger.info("Quiz cog chargée.")
+        self.quiz_loop.start()
+        logger.info("Quiz cog initialisée et boucle démarrée.")
+
+    def cog_unload(self):
+        self.quiz_loop.cancel()
+        logger.info("Quiz cog déchargée et boucle arrêtée.")
+
+    @tasks.loop(seconds=QUIZ_INTERVAL)
+    async def quiz_loop(self):
+        print("BOUCLE QUIZ APPELÉE")  # <-- Ajoute cette ligne
+        logger.info("Boucle quiz appelée.")
+        try:
+            servers = load_json(QUIZ_DATA_PATH)
+            questions = load_json(QUIZ_QUESTIONS_PATH)
+            if not questions:
+                logger.warning("Aucune question trouvée dans le fichier quiz_questions.json.")
+                return
+            for guild_id, data in servers.items():
+                logger.info(f"Vérification serveur {guild_id} enabled={data.get('enabled')} channel={data.get('channel_id')}")
+                if not data.get("enabled", True) or not data.get("channel_id"):
+                    continue
+                channel = self.bot.get_channel(data["channel_id"])
+                if not channel:
+                    logger.warning(f"Salon introuvable pour {guild_id}")
+                    continue
+                q = random.choice(questions)
+                async def on_answer(interaction, correct):
+                    if correct:
+                        servers[guild_id]["tokens"] = servers[guild_id].get("tokens", 0) + 10
+                        save_json(QUIZ_DATA_PATH, servers)
+                        await interaction.response.send_message("Bonne réponse ! 10 tokens gagnés pour le serveur.", ephemeral=True)
+                        logger.info(f"Bonne réponse sur {guild_id}, tokens mis à jour.")
+                    else:
+                        await interaction.response.send_message("Mauvaise réponse !", ephemeral=True)
+                        logger.info(f"Mauvaise réponse sur {guild_id}.")
+                try:
+                    await channel.send(
+                        "Nouveau quiz !",
+                        embed=discord.Embed(title="Quiz", description=q["question"], color=discord.Color.blue())
+                    )
+                    await channel.send_modal(QuizModal(q["question"], q["answer"], on_answer))
+                    logger.info(f"Quiz envoyé dans {channel.name} ({guild_id})")
+                except Exception as e:
+                    logger.error(f"Erreur lors de l'envoi du quiz dans {guild_id} : {e}")
+        except Exception as e:
+            logger.error(f"Erreur dans la boucle quiz : {e}")
+   
+
+    @quiz_loop.before_loop
+    async def before_quiz_loop(self):
+        print("Attente que le bot soit prêt...")
+        await self.bot.wait_until_ready()
+        print("Bot prêt, boucle quiz va démarrer.")
+        
+    @app_commands.command(name="status", description="Afficher ou activer/désactiver le système de quiz")
+    async def quiz_status(self, interaction: discord.Interaction):
+        try:
+            servers = load_json(QUIZ_DATA_PATH)
+            gid = str(interaction.guild.id)
+            enabled = servers.get(gid, {}).get("enabled", False)
+            channel_id = servers.get(gid, {}).get("channel_id")
+            channel = interaction.guild.get_channel(channel_id) if channel_id else None
+            msg = f"Quiz {'activé' if enabled else 'désactivé'} sur ce serveur."
+            if channel:
+                msg += f"\nSalon quiz : {channel.mention}"
+            # Ajoute un bouton pour activer/désactiver
+            class ToggleView(discord.ui.View):
+                @discord.ui.button(label="Activer" if not enabled else "Désactiver", style=discord.ButtonStyle.green if not enabled else discord.ButtonStyle.red)
+                async def toggle(self, interaction2: discord.Interaction, button: discord.ui.Button):
+                    servers.setdefault(gid, {})
+                    servers[gid]["enabled"] = not enabled
+                    save_json(QUIZ_DATA_PATH, servers)
+                    logger.info(f"Quiz {'activé' if not enabled else 'désactivé'} sur {gid} via bouton.")
+                    await interaction2.response.edit_message(content=f"Quiz {'activé' if not enabled else 'désactivé'} sur ce serveur.", view=None)
+            view = ToggleView()
+            await interaction.response.send_message(msg, view=view, ephemeral=True)
+        except Exception as e:
+            logger.error(f"Erreur dans /quiz status : {e}")
+            await interaction.response.send_message("Erreur lors de l'affichage du statut du quiz.", ephemeral=True)
+
+    @app_commands.command(name="channel", description="Définir le salon pour les quiz")
+    @app_commands.describe(channel="Salon où envoyer les quiz")
+    async def quiz_channel(self, interaction: discord.Interaction, channel: discord.TextChannel):
+        try:
+            servers = load_json(QUIZ_DATA_PATH)
+            gid = str(interaction.guild.id)
+            servers.setdefault(gid, {})
+            servers[gid]["channel_id"] = channel.id
+            save_json(QUIZ_DATA_PATH, servers)
+            logger.info(f"Salon des quiz défini sur {channel.id} pour {gid}")
+            await interaction.response.send_message(f"Salon des quiz défini sur {channel.mention}")
+        except Exception as e:
+            logger.error(f"Erreur dans /quiz channel : {e}")
+            await interaction.response.send_message("Erreur lors de la définition du salon quiz.", ephemeral=True)
+
+    @app_commands.command(name="leaderboard", description="Classement des serveurs")
+    async def quiz_leaderboard(self, interaction: discord.Interaction):
+        try:
+            servers = load_json(QUIZ_DATA_PATH)
+            sorted_guilds = sorted(servers.items(), key=lambda x: x[1].get("tokens", 0), reverse=True)
+            desc = ""
+            for i, (gid, data) in enumerate(sorted_guilds[:10], 1):
+                name = self.bot.get_guild(int(gid)).name if self.bot.get_guild(int(gid)) else f"Serveur {gid}"
+                stars = "⭐" * min(5, data.get("tokens", 0)//20)
+                desc += f"{i}. {name} — {data.get('tokens', 0)} tokens {stars}\n"
+            await interaction.response.send_message(embed=discord.Embed(title="Classement Quiz", description=desc or "Aucun serveur classé."))
+            logger.info(f"Leaderboard affiché à {interaction.guild.id}")
+        except Exception as e:
+            logger.error(f"Erreur dans /quiz leaderboard : {e}")
+            await interaction.response.send_message("Erreur lors de l'affichage du classement.", ephemeral=True)
+
+    @app_commands.command(name="stats", description="Statistiques du serveur")
+    async def quiz_stats(self, interaction: discord.Interaction):
+        try:
+            servers = load_json(QUIZ_DATA_PATH)
+            gid = str(interaction.guild.id)
+            data = servers.get(gid, {})
+            tokens = data.get("tokens", 0)
+            stars = "⭐" * min(5, tokens//20)
+            await interaction.response.send_message(
+                embed=discord.Embed(
+                    title="Statistiques Quiz",
+                    description=f"Tokens: {tokens}\nClassement: {stars or 'Aucune étoile'}"
+                )
+            )
+            logger.info(f"Stats affichées pour {gid}")
+        except Exception as e:
+            logger.error(f"Erreur dans /quiz stats : {e}")
+            await interaction.response.send_message("Erreur lors de l'affichage des stats.", ephemeral=True)
+
+async def setup(bot):
+    await bot.add_cog(Quiz(bot))

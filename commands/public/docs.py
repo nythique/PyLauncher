@@ -30,7 +30,7 @@ class Docs(commands.Cog):
 
     @app_commands.command(name="docs", description="Consulte la documentation Python officielle (résumé en français)")
     @app_commands.describe(
-        sujet="Fonction, module ou classe Python à consulter (ex: print, list, os, itertools...)"
+        subject="Fonction, module ou classe Python à consulter (ex: print, list, os, itertools...)"
     )
     async def docs(self, interaction: discord.Interaction, subject: str):
         sujet = subject.strip()
