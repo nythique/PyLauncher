@@ -1,9 +1,27 @@
-import discord
+import discord, logging, time
+from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH
 from discord.ext import commands
 from discord import app_commands
 from config.settings import GROQ_TOKEN, MODEL, FREQUENCY, TEMPERATURE, MAX_TOKENS, TOP_P, PRESENCE_PENALTY
 from groq import Groq
-import time
+
+# Configuration des handlers de logs
+info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
+info_handler.setLevel(logging.INFO)
+info_handler.setFormatter(logging.Formatter(
+    '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
+))
+
+error_handler = logging.FileHandler(ERROR_LOG_PATH, encoding='utf-8')
+error_handler.setLevel(logging.ERROR)
+error_handler.setFormatter(logging.Formatter(
+    '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
+))
+
+logging.getLogger().handlers = []
+logging.getLogger().addHandler(info_handler)
+logging.getLogger().addHandler(error_handler)
+logging.getLogger().setLevel(logging.INFO)
 
 class Challenge(commands.Cog):
     def __init__(self, bot):
@@ -57,16 +75,16 @@ class Challenge(commands.Cog):
                 color=discord.Color.blurple()
             )
             embed.set_footer(
-                text=f"PyLauncher • Challenge géneré en{elapsed:.1f} ms",
+                text=f"PyLauncher • Challenge généré en {elapsed:.1f} ms",
                 icon_url=self.bot.user.display_avatar.url
             )
             await interaction.edit_original_response(embed=embed)
+            logging.info(f"[CHALLENGE] Challenge '{niveau.name}' généré par {interaction.user} ({interaction.user.id}) en {elapsed:.1f} ms")
         except Exception as e:
+            logging.error(f"[CHALLENGE] Erreur lors de la génération du challenge ({interaction.user}): {e}", exc_info=True)
             embed = discord.Embed(
                 title="Erreur lors de la génération",
-                description=f"❌ Une erreur s'est produite :\n```{str(e)}```"
-                "Veuillez vérifier que le niveau est correct et réessayer."
-                " Si le problème persiste, veuillez contacter le support.",
+                description=f"❌ Une erreur s'est produite :\n```{str(e)}```\nVeuillez vérifier que le niveau est correct et réessayer.\nSi le problème persiste, veuillez contacter le support.",
                 color=discord.Color.red()
             )
             embed.set_footer(

@@ -33,7 +33,7 @@ class Premium(commands.Cog):
             await interaction.response.send_message(embed=embed, ephemeral=True)
             return
 
-        if status.lower() not in ["true", "false"]:
+        if max.lower() not in ["true", "false"]:
             embed = discord.Embed(
                 description="Utilisation : `/unleash <serverId> <true|false>`",
                 color=discord.Color.orange()
@@ -42,11 +42,11 @@ class Premium(commands.Cog):
             return
 
         try:
-            set_guild_premium(str(guild_id), premium=(status.lower() == "true"))
-            msg = "Limites supprimées ✅" if status.lower() == "true" else "Limites imposées ❌"
+            set_guild_premium(str(server), premium=(max.lower() == "true"))
+            msg = "Limites supprimées ✅" if max.lower() == "true" else "Limites imposées ❌"
             embed = discord.Embed(
                 description=f"{msg} pour le serveur avec l'ID **{server}**.",
-                color=discord.Color.green() if status.lower() == "true" else discord.Color.orange()
+                color=discord.Color.green() if max.lower() == "true" else discord.Color.orange()
             )
             await interaction.response.send_message(embed=embed, ephemeral=True)
         except Exception as e:

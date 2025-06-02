@@ -117,6 +117,17 @@ def register_commands(bot_instance):
             logging.error(f"[ERROR] Une erreur s'est produite lors de la synchronisation des commandes : {e}")
     
     @bot.event
+    async def on_disconnect():
+        if status_swap.is_running():
+            try:
+                print(Fore.YELLOW + "[INFO] Arrêt des tâches périodiques..." + Style.RESET_ALL)
+                logging.info("[INFO] Arrêt des tâches périodiques...")
+                status_swap.cancel()
+            except Exception as e:
+                print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'arrêt des tâches périodiques" + Style.RESET_ALL)
+                logging.error(f"[ERROR] Une erreur s'est produite lors de l'arrêt des tâches périodiques : {e}")
+
+    @bot.event
     async def on_message(message):
         if message.author.bot:
             return
@@ -160,14 +171,14 @@ def register_commands(bot_instance):
                 lines = lines[1:]
             code = "\n".join(lines).strip()
     
-            # ENVOI IMMEDIAT de l'embed "en cours d'exécution"
+         
             wait_embed = discord.Embed(
                 description="<a:cargando:1377376325077172275> Exécution du code en cours...",
                 color=discord.Color.gold()
             )
             bot_msg = await message.reply(embed=wait_embed)
     
-            # Exécution du code
+            
             start_time = time.perf_counter()
             nb = await create_notebook()
             nb_id = nb.get("id")

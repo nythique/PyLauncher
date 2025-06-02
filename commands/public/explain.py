@@ -1,8 +1,26 @@
-import discord
+import discord, logging
+from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, GROQ_TOKEN, MODEL, FREQUENCY, TEMPERATURE, MAX_TOKENS, TOP_P, PRESENCE_PENALTY
 from discord.ext import commands
 from discord import app_commands
-from config.settings import GROQ_TOKEN, MODEL, FREQUENCY, TEMPERATURE, MAX_TOKENS, TOP_P, PRESENCE_PENALTY
 from groq import Groq
+
+# Configuration des handlers de logs
+info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
+info_handler.setLevel(logging.INFO)
+info_handler.setFormatter(logging.Formatter(
+    '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
+))
+
+error_handler = logging.FileHandler(ERROR_LOG_PATH, encoding='utf-8')
+error_handler.setLevel(logging.ERROR)
+error_handler.setFormatter(logging.Formatter(
+    '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
+))
+
+logging.getLogger().handlers = []
+logging.getLogger().addHandler(info_handler)
+logging.getLogger().addHandler(error_handler)
+logging.getLogger().setLevel(logging.INFO)
 
 class Explain(commands.Cog):
     def __init__(self, bot):
@@ -56,8 +74,15 @@ class Explain(commands.Cog):
                 color=discord.Color.blurple()
             )
             await interaction.followup.send(embed=embed, ephemeral=True)
+            logging.info(f"[EXPLAIN] Explication envoyée à {interaction.user} ({interaction.user.id}) en {lang}")
         except Exception as e:
-            await interaction.followup.send(f"Erreur lors de l'explication : {e}", ephemeral=True)
+            logging.error(f"[EXPLAIN] Erreur lors de l'explication du code par {interaction.user} ({interaction.user.id}): {e}", exc_info=True)
+            error_embed = discord.Embed(
+                title="Erreur lors de l'explication",
+                description=f"❌ Une erreur est survenue lors de l'explication : {e}\nVeuillez réessayer plus tard.",
+                color=discord.Color.red()
+            )
+            await interaction.followup.send(embed=error_embed, ephemeral=True)
 
 async def setup(bot):
     await bot.add_cog(Explain(bot))

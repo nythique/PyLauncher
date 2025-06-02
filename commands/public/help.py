@@ -1,6 +1,25 @@
-import discord
+import discord, logging
+from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH
 from discord.ext import commands
 from discord import app_commands
+
+# Configuration des handlers de logs
+info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
+info_handler.setLevel(logging.INFO)
+info_handler.setFormatter(logging.Formatter(
+    '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
+))
+
+error_handler = logging.FileHandler(ERROR_LOG_PATH, encoding='utf-8')
+error_handler.setLevel(logging.ERROR)
+error_handler.setFormatter(logging.Formatter(
+    '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
+))
+
+logging.getLogger().handlers = []
+logging.getLogger().addHandler(info_handler)
+logging.getLogger().addHandler(error_handler)
+logging.getLogger().setLevel(logging.INFO)
 
 class Help(commands.Cog):
     def __init__(self, bot):
@@ -8,29 +27,47 @@ class Help(commands.Cog):
 
     @app_commands.command(name="help", description="Afficher l'aide du bot")
     async def help(self, interaction: discord.Interaction):
-        bot_user = self.bot.user
-        embed = discord.Embed(
-            title="Aide de PyLauncher",
-            description="Voici les principales commandes et fonctionnalités du bot :",
-            color=discord.Color.blue()
-        )
-        embed.set_thumbnail(url=bot_user.display_avatar.url)
-        embed.add_field(name="/help", value="Affiche ce message d'aide.", inline=False)
-        embed.add_field(name="/ping", value="Affiche la latence du bot et de Discord.", inline=False)
-        embed.add_field(name="/profil", value="Voir le profil du serveur et ses stats d'utilisation.", inline=False)
-        embed.add_field(name="/set channel <salon>", value="Définir le salon autorisé pour ce serveur (admin requis).", inline=False)
-        embed.add_field(name="/set report <message>", value="Envoyer un rapport ou une suggestion à l'équipe.", inline=False)
-        invite_url = f"https://discord.com/oauth2/authorize?client_id={bot_user.id}&scope=bot&permissions=8"
-        embed.add_field(
-            name="Lien d'invitation",
-            value=f"[Clique ici pour inviter PyLauncher sur ton serveur]({invite_url})",
-            inline=False
-        )
-        embed.set_footer(
-            text="Développé par Nexium Portal • PyLauncher",
-            icon_url=bot_user.display_avatar.url
-        )
-        await interaction.response.send_message(embed=embed, ephemeral=True)
+        try:
+            bot_user = self.bot.user
+            embed = discord.Embed(
+                title="Aide de PyLauncher",
+                description="Voici les principales commandes et fonctionnalités du bot :",
+                color=discord.Color.blue()
+            )
+            embed.set_thumbnail(url=bot_user.display_avatar.url)
+            embed.add_field(name="/help", value="Affiche ce message d'aide.", inline=False)
+            embed.add_field(name="/ping", value="Affiche la latence du bot et de Discord.", inline=False)
+            embed.add_field(name="/profil", value="Voir le profil du serveur et ses stats d'utilisation.", inline=False)
+            embed.add_field(name="/set channel <salon>", value="Définir le salon autorisé pour ce serveur (admin requis).", inline=False)
+            embed.add_field(name="/set report <message>", value="Envoyer un rapport ou une suggestion à l'équipe.", inline=False)
+            embed.add_field(name="/notebook <titre> <code>", value="Génère un notebook Jupyter à partir de code Python.", inline=False)
+            embed.add_field(name="/docs <sujet>", value="Consulte la documentation Python officielle (résumé en français).", inline=False)
+            embed.add_field(name="/search <question>", value="Obtiens une réponse à une question Python.", inline=False)
+            embed.add_field(name="/explain <code>", value="Donne une explication détaillée du code Python.", inline=False)
+            embed.add_field(name="/transpile <langage> <code>", value="Convertit du code d'un autre langage vers Python.", inline=False)
+            embed.add_field(name="/analyze <code>", value="Analyse le code Python pour détecter les erreurs.", inline=False)
+            embed.add_field(name="/challenge <niveau> [sujet]", value="Génère un mini-problème Python adapté à ton niveau.", inline=False)
+            invite_url = f"https://discord.com/oauth2/authorize?client_id={bot_user.id}&scope=bot&permissions=8"
+            embed.add_field(
+                name="Lien d'invitation",
+                value=f"[Clique ici pour inviter PyLauncher sur ton serveur]({invite_url})",
+                inline=False
+            )
+            embed.set_footer(
+                text="Développé par Nexium Portal • PyLauncher",
+                icon_url=bot_user.display_avatar.url
+            )
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+            logging.info(f"[HELP] Message d'aide envoyé à {interaction.user} ({interaction.user.id})")
+        except Exception as e:
+            logging.error(f"[HELP] Erreur lors de l'affichage de l'aide pour {interaction.user} ({interaction.user.id}): {e}", exc_info=True)
+            error_embed = discord.Embed(
+                title="Erreur lors de l'affichage de l'aide",
+                description="❌ Une erreur est survenue lors de l'affichage de l'aide. Veuillez réessayer plus tard."
+                "\nSi le problème persiste, contactez le support.",
+                color=discord.Color.red()
+            )
+            await interaction.response.send_message(embed=error_embed, ephemeral=True)
 
 async def setup(bot):
     await bot.add_cog(Help(bot))

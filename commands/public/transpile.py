@@ -1,9 +1,27 @@
-import discord
+import discord, logging
+from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, GROQ_TOKEN, MODEL, FREQUENCY, TEMPERATURE, MAX_TOKENS, TOP_P, PRESENCE_PENALTY
 from discord.ext import commands
 from discord import app_commands
-from config.settings import GROQ_TOKEN, MODEL, FREQUENCY, TEMPERATURE, MAX_TOKENS, TOP_P, PRESENCE_PENALTY
 from groq import Groq
 import time
+
+# Configuration des handlers de logs
+info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
+info_handler.setLevel(logging.INFO)
+info_handler.setFormatter(logging.Formatter(
+    '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
+))
+
+error_handler = logging.FileHandler(ERROR_LOG_PATH, encoding='utf-8')
+error_handler.setLevel(logging.ERROR)
+error_handler.setFormatter(logging.Formatter(
+    '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
+))
+
+logging.getLogger().handlers = []
+logging.getLogger().addHandler(info_handler)
+logging.getLogger().addHandler(error_handler)
+logging.getLogger().setLevel(logging.INFO)
 
 class Transpiling(commands.Cog):
     def __init__(self, bot):
@@ -70,11 +88,13 @@ class Transpiling(commands.Cog):
                 icon_url=self.bot.user.display_avatar.url
             )
             await interaction.edit_original_response(embed=embed)
+            logging.info(f"[TRANSPILER] Transpilation réussie de {language.value} vers Python par {interaction.user} ({interaction.user.id}) en {elapsed:.1f} ms")
         except Exception as e:
+            logging.error(f"[TRANSPILER] Erreur lors de la transpilation ({interaction.user} - {language.value}): {e}", exc_info=True)
             embed = discord.Embed(
                 title="Erreur lors de la transpilation",
                 description=f"❌ Signalement d'erreur : {str(e)}\n\n"
-                "Veuillez vérifier que le code est correct et réessayer."
+                "Veuillez vérifier que le code est correct et réessayer.\n"
                 "Si le problème persiste, veuillez contacter le support.",
                 color=discord.Color.red()
             )

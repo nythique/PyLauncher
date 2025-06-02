@@ -1,7 +1,6 @@
 import aiohttp, asyncio, subprocess, tempfile, os, sys
 
 async def create_notebook():
-    # Plus besoin de notebook, retourne juste un id fictif
     return {"id": "local"}
 
 async def run_code_in_notebook(nb_id, code, lang="python"):
@@ -53,5 +52,4 @@ async def run_bash_code_locally(code, timeout=10):
     return {"result": output}
 
 async def delete_notebook(nb_id):
-    # Rien à faire en local
     return {"result": "Notebook supprimé (local)"}

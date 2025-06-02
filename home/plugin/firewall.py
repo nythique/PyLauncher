@@ -64,7 +64,7 @@ def check_guild_limits(guild_id):
             guild["count"] = 0
             guild["reset_time"] = now + 86400
         # Limites selon premium
-        max_per_day = 130 if guild["premium"] else 50
+        max_per_day = 200 if guild["premium"] else 50
         min_interval = 1 if guild["premium"] else 5
         # Vérif intervalle
         if now - guild["last_request"] < min_interval:
