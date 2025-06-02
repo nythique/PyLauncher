@@ -5,7 +5,7 @@ services:
     container_name: pylauncher
     volumes:
       - PyLauncherVD:/app/PyLauncher/home/cluster/global/
-      - pyLauncherVC:/app/PyLauncher/config/controller/
+      - PyLauncherVC:/app/PyLauncher/config/controller/
     restart: unless-stopped
 
 volumes:
