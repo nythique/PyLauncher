@@ -1,7 +1,7 @@
 services:
   pylauncher:
     build: .
-    image: pylauncher:installer-1.18
+    image: pylauncher:installer-1.18.1
     container_name: pylauncher
     volumes:
       - PyLauncherVD:/app/PyLauncher/home/cluster/global/
