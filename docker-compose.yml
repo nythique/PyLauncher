@@ -8,6 +8,11 @@ services:
       - PyLauncherVC:/app/PyLauncher/config/controller/
       - PyLauncherLog:/app/PyLauncher/logs/
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '3.00'    
+          memory: 2G
 
 volumes:
   PyLauncherVD:
