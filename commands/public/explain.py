@@ -4,7 +4,7 @@ from discord.ext import commands
 from discord import app_commands
 from groq import Groq
 
-# Configuration des handlers de logs
+
 info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(

@@ -1,5 +1,5 @@
 services:
-  pylauncher:
+  pylauncher: 
     build: .
     image: pylauncher:installer-1.18.1
     container_name: pylauncher

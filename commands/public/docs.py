@@ -6,7 +6,7 @@ import pydoc
 from config.settings import GROQ_TOKEN, MODEL, MAX_TOKENS, TOP_P, FREQUENCY, PRESENCE_PENALTY, TEMPERATURE
 from groq import Groq
 
-# Configuration des handlers de logs
+
 info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(
@@ -45,7 +45,7 @@ class Docs(commands.Cog):
                 logging.warning(f"[DOCS] Impossible de générer le résumé pour '{sujet}': {e}")
                 summary = "Aucun résumé disponible, consulte la documentation officielle."
 
-            # Traduction automatique en français via Groq
+           
             try:
                 client = Groq(api_key=GROQ_TOKEN)
                 prompt = (

@@ -10,7 +10,6 @@ from home.plugin.rooter import (
     get_admin_ids, get_banned_guilds, get_banned_users
 )
 
-# Configuration des handlers de logs
 info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(

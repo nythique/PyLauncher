@@ -1,7 +1,9 @@
 import discord, requests, logging, time
 from discord.ext import commands
 from discord import app_commands
-
+"""
+Code pas encore terminé, mais voici la structure de base pour le module Pastebin.
+"""
 class Pastebin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot

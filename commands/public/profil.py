@@ -30,7 +30,7 @@ class Profil(commands.Cog):
             reset_in = max(0, reset_time - now)
             h, m, s = reset_in // 3600, (reset_in % 3600) // 60, reset_in % 60
 
-            # Barre d'utilisation (évite division par zéro)
+    
             progress = int((count / max_per_day) * 10) if max_per_day else 0
             bar = "🟩" * progress + "⬜" * (10 - progress)
 

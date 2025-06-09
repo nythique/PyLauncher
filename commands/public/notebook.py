@@ -4,7 +4,7 @@ from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH
 from discord.ext import commands
 from discord import app_commands
 
-# Configuration des handlers de logs
+
 info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(
