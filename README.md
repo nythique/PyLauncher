@@ -62,7 +62,7 @@
 
 ```sh
 # 1. Clone the repository
-git clone https://github.com/yourusername/PyLauncher.git
+git clone https://github.com/nythique/PyLauncher.git
 cd PyLauncher
 
 # 2. Install dependencies
