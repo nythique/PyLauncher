@@ -4,3 +4,4 @@ requests
 pyflakes
 groq
 nbformat
+python-dotenv
