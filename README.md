@@ -62,7 +62,7 @@
 
 ```sh
 # 1. Clone the repository
-git clone https://github.com/yourusername/PyLauncher.git
+git clone https://github.com/nythique/PyLauncher.git
 cd PyLauncher
 
 # 2. Install dependencies
@@ -127,3 +127,4 @@ This project is licensed under the [GNU AGPL v3](LICENSE) and owned by Nythque.
 ---
 
 <p align="center"><b>PyLauncher</b> — Empowering Python learning and automation on Discord.</p>
+Today 01/07/2025
